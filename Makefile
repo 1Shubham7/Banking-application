@@ -16,4 +16,7 @@ migratedown:
 sqlc:
 	sqlc generate
 
-.PHONY: createdb dropdb postgres migrateup migratedown
+test:
+	go test -v -cover ./... # this means that all the tests in project will run
+
+.PHONY: createdb dropdb postgres migrateup migratedown test
