@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+
 	"github.com/1shubham7/bank/util"
 	"github.com/stretchr/testify/assert"
 )
@@ -98,5 +99,53 @@ func TestDeleteAccount(t *testing.T){
 	err = testQueries.DeleteAccount(context.Background(), account.ID)
 
 	assert.NoError(err)
-	assert.Nil(account)
+	
+	acc, err := testQueries.GetAccount(context.Background(), account.ID)
+
+	assert.Error(err)
+	assert.EqualError(err, "no rows in result set")
+
+	assert.Equal(acc.ID, int64(0))
+	assert.Equal(acc.Balance, int64(0))
+}
+
+func TestListAccounts(t *testing.T){
+	assert := assert.New(t)
+	args := CreateAccountParams{
+		Owner:    "Shubham the legend",
+		Balance:  util.RandomBalance(),
+		Currency: util.RandomCurrency(),
+	}
+
+	account, err := testQueries.CreateAccount(context.Background(), args)
+
+	assert.NotNil(account)
+	assert.NoError(err)
+
+	argsTwo := CreateAccountParams{
+		Owner:    "Shubham the legend",
+		Balance:  util.RandomBalance(),
+		Currency: util.RandomCurrency(),
+	}
+
+	accountTwo, err := testQueries.CreateAccount(context.Background(), argsTwo)
+
+	assert.NotNil(accountTwo)
+	assert.NoError(err)
+
+
+	lap := ListAccountsParams{
+		Owner : "Shubham the legend",
+		Limit: 2,
+		Offset: 0,
+	}
+
+	accounts, err := testQueries.ListAccounts(context.Background(), lap)
+
+	assert.NoError(err)
+	assert.Len(accounts, 2)
+
+	for _,a := range accounts{
+		assert.NotEmpty(a)
+	}
 }
