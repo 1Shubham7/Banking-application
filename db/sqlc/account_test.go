@@ -11,7 +11,7 @@ import (
 func TestCreateAccount(t *testing.T) {
 	assert := assert.New(t)
 	args := CreateAccountParams{
-		Owner:    "Shubham",
+		Owner:    "Shubham the legend",
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -21,9 +21,9 @@ func TestCreateAccount(t *testing.T) {
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	assert.Equal(account.Owner, "Shubham")
-	assert.Equal(account.Balance, int64(100000000000))
-	assert.Equal(account.Currency, "USD")
+	assert.Equal(account.Owner, "Shubham the legend")
+	assert.Equal(account.Balance, args.Balance)
+	assert.Equal(account.Currency, args.Currency)
 
 	assert.NotZero(account.ID)
 	assert.NotZero(account.CreatedAt)
