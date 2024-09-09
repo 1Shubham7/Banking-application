@@ -89,13 +89,38 @@ func (store *Store) TransferTransection(ctx context.Context, arg TransferTransec
 			return err
 		}
 
-		// TODO: Update acc balance
+		// Update acc balance
+
+		acc1, err := q.GetAccount(ctx, arg.FromAccountId)
+		if err != nil{
+			return err
+		}
+
+		result.FromAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
+			ID: arg.FromAccountId,
+			Balance: acc1.Balance - arg.Amount,
+		})
+
+		if err != nil{
+			return err
+		}
+
+		acc2, err := q.GetAccount(ctx, arg.ToAccountId)
+		if err != nil{
+			return err
+		}
+
+		result.ToAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
+			ID: arg.ToAccountId,
+			Balance: acc2.Balance + arg.Amount,
+		})
+
+		if err != nil{
+			return err
+		}
 
 		return nil
 	})
 
-	if err != nil{
-		return nil, err
-	}
 	return result, nil
 }
