@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 // store provides all funcs to execute db transections and queries
@@ -11,6 +13,11 @@ import (
 type Store struct {
 	*Queries
 	db *sql.DB
+}
+
+type SQLStore struct{
+	*Queries
+	connPool 
 }
 
 func NewStore(db *sql.DB) *Store {
