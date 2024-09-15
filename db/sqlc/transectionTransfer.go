@@ -5,8 +5,8 @@ import (
 )
 
 type TransferTransectionParams struct {
-	FromAccountId int64 `json:"from_acc_id"`
-	ToAccountId  int64 `json:"to_acc_id"`
+	FromAccountID int64 `json:"from_acc_id"`
+	ToAccountID  int64 `json:"to_acc_id"`
 	Amount        int64 `json:"amount"`
 }
 
@@ -27,8 +27,8 @@ func (store *SQLStore) TransferTransection(ctx context.Context, arg TransferTran
 		var err error
 
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
-			FromAccountID: arg.FromAccountId,
-			ToAccountID : arg.ToAccountId,
+			FromAccountID: arg.FromAccountID,
+			ToAccountID : arg.ToAccountID,
 			Amount: arg.Amount,
 		})
 
@@ -37,7 +37,7 @@ func (store *SQLStore) TransferTransection(ctx context.Context, arg TransferTran
 		}
 
 		result.FromEntry, err = q.CreateEntry(ctx, CreateEntryParams{
-			AccountID: arg.FromAccountId,
+			AccountID: arg.FromAccountID,
 			Amount: -arg.Amount,
 		})
 
@@ -46,7 +46,7 @@ func (store *SQLStore) TransferTransection(ctx context.Context, arg TransferTran
 		}
 
 		result.ToEntry, err = q.CreateEntry(ctx, CreateEntryParams{
-			AccountID: arg.ToAccountId,
+			AccountID: arg.ToAccountID,
 			Amount: arg.Amount,
 		})
 		
@@ -57,7 +57,7 @@ func (store *SQLStore) TransferTransection(ctx context.Context, arg TransferTran
 		// Update acc balance
 
 		// trying to prevent deadlock by this
-		if arg.FromAccountId < arg.ToAccountId{
+		if arg.FromAccountID < arg.ToAccountID{
 			result.FromAccount, result.ToAccount, err = addMoney(ctx, q, arg.FromAccountID, -arg.Amount, arg.ToAccountID, arg.Amount)
 		} else {
 			result.ToAccount, result.FromAccount, err = addMoney(ctx, q, arg.ToAccountID, arg.Amount, arg.FromAccountID, -arg.Amount)
@@ -70,6 +70,31 @@ func (store *SQLStore) TransferTransection(ctx context.Context, arg TransferTran
 	return result, err
 }
 
-func addMoney(){
-	
+func addMoney(
+	ctx context.Context,
+	q *Queries,
+	accID1,
+	accID2,
+	amountAcc1,
+	amountAcc2 int64,
+) (acc1, acc2 Account, err error){
+	acc1, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+		ID: accID1,
+		Amount: amountAcc1,
+	})
+
+	if err != nil{
+		return acc1, acc2, err
+	}
+
+	acc2, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+		ID: accID2,
+		Amount: amountAcc2,
+	})
+
+	if err != nil{
+		return 
+	}
+
+	return
 }
