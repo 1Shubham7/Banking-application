@@ -13,6 +13,22 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: simple_bank
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - uses: actions/checkout@v4 #these are already build actions that we can use 
 
@@ -21,6 +37,9 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.23'
+
+    - name: migrations
+      run: make migrateup
 
     - name: Test
       run: make test
