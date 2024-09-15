@@ -1,10 +1,10 @@
 package db
 
 import (
-	"log"
-	"testing"
-	"os"
 	"context"
+	"log"
+	"os"
+	"testing"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -17,7 +17,6 @@ const (
 var testQueries *Queries
 
 func TestMain(m *testing.M){
-
 	connPool, err := pgxpool.New(context.Background(), dbSource)
 
 	if err != nil{
