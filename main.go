@@ -6,6 +6,7 @@ import (
 
 	"github.com/1shubham7/bank/api"
 	db "github.com/1shubham7/bank/db/sqlc"
+	"github.com/1shubham7/bank/util"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -17,7 +18,12 @@ const (
 )
 
 func main(){
-	connPool, err := pgxpool.New(context.Background(), dbSource)
+	config, err := util.LoadConfig(".")
+
+	if err != nil{
+		log.Fatal("Can't load config: ", err)
+	}
+	connPool, err := pgxpool.New(context.Background(), config.DBSource)
 
 	if err != nil{
 		log.Fatal("Error occured while connecting to the sql database: ", err)
@@ -27,7 +33,7 @@ func main(){
 	store := db.NewStore(connPool)
 	server := api.NewServer(store)
 
-	err = server.Start(serverAddress)
+	err = server.Start(config.ServerAddress)
 	if err != nil{
 		log.Fatal("can't start server: ", err)
 	}	
