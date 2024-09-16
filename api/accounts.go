@@ -1,6 +1,11 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	db "github.com/1shubham7/bank/db/sqlc"
+	"github.com/gin-gonic/gin"
+)
 
 type createAccountRequest struct{
 	Owner    string `json:"owner" binding:"required"`
@@ -9,5 +14,26 @@ type createAccountRequest struct{
 }
 
 func (server *Server) createAccount(ctx *gin.Context){
+	var req createAccountRequest
 
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil{
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	arg := db.CreateAccountParams{
+		Owner: req.Owner,
+		Balance: req.Balance,
+		Currency: req.Currency,
+	}
+
+	account, err := server.store.CreateAccount(ctx, arg)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, account)
 }

@@ -1,23 +1,22 @@
-package db
+package main
 
 import (
 	"context"
 	"log"
-	"os"
-	"testing"
 
+	"github.com/1shubham7/bank/api"
+	db "github.com/1shubham7/bank/db/sqlc"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
+
 
 const (
 	dbDriver = "postgres"
 	dbSource = "postgres://root:secret@localhost:5432/simple_bank?sslmode=disable"
+	serverAddress = "0.0.0.0:8080"
 )
 
-var testQueries *Queries
-var testStore Store
-
-func TestMain(m *testing.M){
+func main(){
 	connPool, err := pgxpool.New(context.Background(), dbSource)
 
 	if err != nil{
@@ -25,7 +24,11 @@ func TestMain(m *testing.M){
 	}
 
 	// testQueries = New(connPool)
-	testStore = NewStore(connPool)
+	store := db.NewStore(connPool)
+	server := api.NewServer(store)
 
-	os.Exit(m.Run())
+	err = server.Start(serverAddress)
+	if err != nil{
+		log.Fatal("can't start server: ", err)
+	}	
 }

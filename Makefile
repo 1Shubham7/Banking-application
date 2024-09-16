@@ -19,4 +19,7 @@ sqlc:
 test:
 	go test -v -cover ./... # this means that all the tests in project will run
 
-.PHONY: createdb dropdb postgres migrateup migratedown test
+server:
+	go run main.go
+
+.PHONY: createdb dropdb postgres migrateup migratedown test server
