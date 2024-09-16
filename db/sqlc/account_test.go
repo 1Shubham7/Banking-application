@@ -17,7 +17,7 @@ func TestCreateAccount(t *testing.T) {
 		Currency: util.RandomCurrency(),
 	}
 
-	account, err := testQueries.CreateAccount(context.Background(), args)
+	account, err := testStore.CreateAccount(context.Background(), args)
 
 	assert.NotNil(account)
 	assert.NoError(err)
@@ -39,12 +39,12 @@ func TestGetAccount(t *testing.T){
 		Currency: util.RandomCurrency(),
 	}
 
-	account, err := testQueries.CreateAccount(context.Background(), args)
+	account, err := testStore.CreateAccount(context.Background(), args)
 
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	acc, err := testQueries.GetAccount(context.Background(), account.ID)
+	acc, err := testStore.GetAccount(context.Background(), account.ID)
 
 	assert.NotNil(acc)
 	assert.NoError(err)
@@ -63,7 +63,7 @@ func TestUpdateAccount(t *testing.T){
 		Currency: util.RandomCurrency(),
 	}
 
-	account, err := testQueries.CreateAccount(context.Background(), args)
+	account, err := testStore.CreateAccount(context.Background(), args)
 
 	assert.NotNil(account)
 	assert.NoError(err)
@@ -73,7 +73,7 @@ func TestUpdateAccount(t *testing.T){
 		Balance: util.RandomBalance(),
 	}
 
-	acc, err := testQueries.UpdateAccount(context.Background(), updateParam)
+	acc, err := testStore.UpdateAccount(context.Background(), updateParam)
 
 	assert.NotNil(acc)
 	assert.NoError(err)
@@ -91,16 +91,16 @@ func TestDeleteAccount(t *testing.T){
 		Currency: util.RandomCurrency(),
 	}
 
-	account, err := testQueries.CreateAccount(context.Background(), args)
+	account, err := testStore.CreateAccount(context.Background(), args)
 
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	err = testQueries.DeleteAccount(context.Background(), account.ID)
+	err = testStore.DeleteAccount(context.Background(), account.ID)
 
 	assert.NoError(err)
 	
-	acc, err := testQueries.GetAccount(context.Background(), account.ID)
+	acc, err := testStore.GetAccount(context.Background(), account.ID)
 
 	assert.Error(err)
 	assert.EqualError(err, "no rows in result set")
@@ -117,7 +117,7 @@ func TestListAccounts(t *testing.T){
 		Currency: util.RandomCurrency(),
 	}
 
-	account, err := testQueries.CreateAccount(context.Background(), args)
+	account, err := testStore.CreateAccount(context.Background(), args)
 
 	assert.NotNil(account)
 	assert.NoError(err)
@@ -128,7 +128,7 @@ func TestListAccounts(t *testing.T){
 		Currency: util.RandomCurrency(),
 	}
 
-	accountTwo, err := testQueries.CreateAccount(context.Background(), argsTwo)
+	accountTwo, err := testStore.CreateAccount(context.Background(), argsTwo)
 
 	assert.NotNil(accountTwo)
 	assert.NoError(err)
@@ -140,7 +140,7 @@ func TestListAccounts(t *testing.T){
 		Offset: 0,
 	}
 
-	accounts, err := testQueries.ListAccounts(context.Background(), lap)
+	accounts, err := testStore.ListAccounts(context.Background(), lap)
 
 	assert.NoError(err)
 	assert.Len(accounts, 2)

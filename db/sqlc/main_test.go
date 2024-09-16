@@ -15,6 +15,7 @@ const (
 )
 
 var testQueries *Queries
+var testStore Store
 
 func TestMain(m *testing.M){
 	connPool, err := pgxpool.New(context.Background(), dbSource)
@@ -23,7 +24,8 @@ func TestMain(m *testing.M){
 		log.Fatal("Error occured while connecting to the sql database: ", err)
 	}
 
-	testQueries = New(connPool)
+	// testQueries = New(connPool)
+	testStore = NewSQLStore(connPool)
 
 	os.Exit(m.Run())
 }
