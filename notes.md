@@ -9,5 +9,11 @@ docker exec -it postgres12 /bin/sh
 We used this to generate mocks of Store interface
 
 ```
-go get github.com/golang/mock/mockgen/model
+mockgen --destination db/mock/store.go github.com/1shubham7/bank/db/sqlc Store
+```
+
+you can also choose which package you want for your generated file:
+
+```
+mockgen --destination db/mock/store.go --package mockdb  github.com/1shubham7/bank/db/sqlc Store
 ```
