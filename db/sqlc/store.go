@@ -7,7 +7,7 @@ import (
 
 // store provides all funcs to execute db transections and queries
 type Store interface {
-	Querier
+	Querier //this is bring all the funcs inside Queries (querier.go) inside this interface
 	TransferTransection(ctx context.Context, arg TransferTransectionParams) (TransferTransectionResult, error)
 }
 
