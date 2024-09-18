@@ -47,12 +47,60 @@ func TestGetAccount(t *testing.T){
 	requireBodyMatchAccount(t, recorder.Body, account)
 }
 
+func TestCreateAccount(t *testing.T){
+	assert := assert.New(t)
+	account := db.Account{
+		ID:       util.RandomInt(1, 1000),
+		Owner:    util.RandomOwner(),
+		Balance:  util.RandomBalance(),
+		Currency: util.RandomCurrency(),
+	}
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	store := mockdb.NewMockStore(ctrl)
+
+	server := NewServer(store)
+	recorder := httptest.NewRecorder()
+
+	arg := db.CreateAccountParams{
+		Owner:    account.Owner,
+		Currency: account.Currency,
+		Balance:  account.Balance,
+	}
+
+	store.EXPECT().
+		CreateAccount(gomock.Any(), gomock.Eq(arg)).
+		Times(1).
+		Return(account, nil)
+
+	reqBody := createAccountRequest{
+			Owner:    account.Owner,
+			Balance:  account.Balance,
+			Currency: account.Currency,
+	}
+	body, err := json.Marshal(reqBody)
+	assert.NoError(err)
+	
+	req, err := http.NewRequest(http.MethodPost, "/accounts", bytes.NewReader((body)))
+
+	assert.NoError(err)
+
+	req.Header.Set("Content-Type", "application/json")
+	server.router.ServeHTTP(recorder, req)
+
+	assert.Equal(http.StatusOK, recorder.Code)
+	requireBodyMatchAccount(t, recorder.Body, account)
+}
+
 func requireBodyMatchAccount(t *testing.T, body *bytes.Buffer, account db.Account) {
+	assert := assert.New(t)
 	data, err := io.ReadAll(body)
-	assert.NoError(t, err)
+	assert.NoError(err)
 
 	var gotAccount db.Account
 	err = json.Unmarshal(data, &gotAccount)
-	assert.NoError(t, err)
-	assert.Equal(t, account, gotAccount)
+	assert.NoError(err)
+	assert.Equal(account, gotAccount)
 }
