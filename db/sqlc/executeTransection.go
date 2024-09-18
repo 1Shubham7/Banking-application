@@ -7,7 +7,7 @@ import (
 
 func (store *SQLStore) executeTransection(ctx context.Context, fn func(*Queries) error) error {
 	tx, err := store.connPool.Begin(ctx)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 

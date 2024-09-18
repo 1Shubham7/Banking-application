@@ -12,16 +12,16 @@ import (
 
 var testStore Store
 
-func TestMain(m *testing.M){
+func TestMain(m *testing.M) {
 	config, err := util.LoadConfig("../..")
 
-	if err != nil{
+	if err != nil {
 		log.Fatal("Error occured while loading config: ", err)
-	} 
+	}
 
 	connPool, err := pgxpool.New(context.Background(), config.DBSource)
 
-	if err != nil{
+	if err != nil {
 		log.Fatal("Error occured while connecting to the sql database: ", err)
 	}
 

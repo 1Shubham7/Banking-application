@@ -29,7 +29,7 @@ func TestCreateAccount(t *testing.T) {
 	assert.NotZero(account.CreatedAt)
 }
 
-func TestGetAccount(t *testing.T){
+func TestGetAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	args := CreateAccountParams{
@@ -53,7 +53,7 @@ func TestGetAccount(t *testing.T){
 	assert.Equal(acc.Currency, args.Currency)
 }
 
-func TestUpdateAccount(t *testing.T){
+func TestUpdateAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	args := CreateAccountParams{
@@ -68,7 +68,7 @@ func TestUpdateAccount(t *testing.T){
 	assert.NoError(err)
 
 	updateParams := UpdateAccountParams{
-		ID: account.ID,
+		ID:      account.ID,
 		Balance: util.RandomBalance(),
 	}
 
@@ -81,7 +81,7 @@ func TestUpdateAccount(t *testing.T){
 	assert.Equal(acc.Balance, updateParams.Balance)
 }
 
-func TestDeleteAccount(t *testing.T){
+func TestDeleteAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	args := CreateAccountParams{
@@ -98,7 +98,7 @@ func TestDeleteAccount(t *testing.T){
 	err = testStore.DeleteAccount(context.Background(), account.ID)
 
 	assert.NoError(err)
-	
+
 	acc, err := testStore.GetAccount(context.Background(), account.ID)
 
 	assert.Error(err)
@@ -108,7 +108,7 @@ func TestDeleteAccount(t *testing.T){
 	assert.Equal(acc.Balance, int64(0))
 }
 
-func TestListAccounts(t *testing.T){
+func TestListAccounts(t *testing.T) {
 	assert := assert.New(t)
 	args := CreateAccountParams{
 		Owner:    "Shubham the legend",
@@ -132,10 +132,9 @@ func TestListAccounts(t *testing.T){
 	assert.NotNil(accountTwo)
 	assert.NoError(err)
 
-
 	lap := ListAccountsParams{
-		Owner : "Shubham the legend",
-		Limit: 2,
+		Owner:  "Shubham the legend",
+		Limit:  2,
 		Offset: 0,
 	}
 
@@ -144,7 +143,7 @@ func TestListAccounts(t *testing.T){
 	assert.NoError(err)
 	assert.Len(accounts, 2)
 
-	for _,a := range accounts{
+	for _, a := range accounts {
 		assert.NotEmpty(a)
 	}
 }

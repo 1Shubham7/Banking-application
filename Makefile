@@ -25,4 +25,7 @@ server:
 mock:
 	mockgen --destination db/mock/store.go --package mockdb  github.com/1shubham7/bank/db/sqlc Store
 
-.PHONY: createdb dropdb postgres migrateup migratedown test server mock
+i_love_you:
+	go fmt ./...
+
+.PHONY: createdb dropdb postgres migrateup migratedown test server mock i_love_you

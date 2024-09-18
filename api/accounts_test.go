@@ -2,12 +2,12 @@ package api
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"encoding/json"
 
 	mockdb "github.com/1shubham7/bank/db/mock"
 	db "github.com/1shubham7/bank/db/sqlc"
@@ -16,11 +16,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetAccount(t *testing.T){
+func TestGetAccount(t *testing.T) {
 	account := db.Account{
-		ID: util.RandomInt(1,1000),
-		Owner: util.RandomOwner(),
-		Balance: util.RandomBalance(),
+		ID:       util.RandomInt(1, 1000),
+		Owner:    util.RandomOwner(),
+		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
 
@@ -47,7 +47,7 @@ func TestGetAccount(t *testing.T){
 	requireBodyMatchAccount(t, recorder.Body, account)
 }
 
-func TestCreateAccount(t *testing.T){
+func TestCreateAccount(t *testing.T) {
 	assert := assert.New(t)
 	account := db.Account{
 		ID:       util.RandomInt(1, 1000),
@@ -76,13 +76,13 @@ func TestCreateAccount(t *testing.T){
 		Return(account, nil)
 
 	reqBody := createAccountRequest{
-			Owner:    account.Owner,
-			Balance:  account.Balance,
-			Currency: account.Currency,
+		Owner:    account.Owner,
+		Balance:  account.Balance,
+		Currency: account.Currency,
 	}
 	body, err := json.Marshal(reqBody)
 	assert.NoError(err)
-	
+
 	req, err := http.NewRequest(http.MethodPost, "/accounts", bytes.NewReader((body)))
 
 	assert.NoError(err)
