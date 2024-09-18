@@ -67,18 +67,18 @@ func TestUpdateAccount(t *testing.T){
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	updateParam := UpdateAccountParams{
+	updateParams := UpdateAccountParams{
 		ID: account.ID,
 		Balance: util.RandomBalance(),
 	}
 
-	acc, err := testStore.UpdateAccount(context.Background(), updateParam)
+	acc, err := testStore.UpdateAccount(context.Background(), updateParams)
 
 	assert.NotNil(acc)
 	assert.NoError(err)
 
 	assert.Equal(acc.Owner, "Shubham the OG")
-	assert.Equal(acc.Balance, updateParam.Balance)
+	assert.Equal(acc.Balance, updateParams.Balance)
 }
 
 func TestDeleteAccount(t *testing.T){
