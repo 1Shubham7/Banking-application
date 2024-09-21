@@ -10,9 +10,11 @@ import (
 
 func TestCreateUser(t *testing.T) {
 	assert := assert.New(t)
+
+	password, _ := util.HashPassword(util.RandomString(6))
 	args := CreateUserParams{
 		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
+		HashedPassword: password,
 		FullName: "Shubham Singh Mahar",
 		Email: util.RandomEmail(),
 	}
@@ -33,9 +35,10 @@ func TestCreateUser(t *testing.T) {
 
 func TestGetUser(t *testing.T) {
 	assert := assert.New(t)
+	password, _ := util.HashPassword(util.RandomString(6))
 	args := CreateUserParams{
 		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
+		HashedPassword: password,
 		FullName: "Shubham Singh Mahar",
 		Email: util.RandomEmail(),
 	}
