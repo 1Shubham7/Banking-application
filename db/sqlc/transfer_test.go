@@ -12,9 +12,18 @@ func TestCreateTransfer(t *testing.T) {
 	assert := assert.New(t)
 
 	// creating two accounts
+	userArgs1 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user1, err := testStore.CreateUser(context.Background(), userArgs1)
+	assert.NoError(err)
 
 	account1, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user1.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})
@@ -22,8 +31,18 @@ func TestCreateTransfer(t *testing.T) {
 	assert.NotNil(account1)
 	assert.NoError(err)
 
+	userArgs2 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user2, err := testStore.CreateUser(context.Background(), userArgs2)
+	assert.NoError(err)
+
 	account2, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the real legend",
+		Owner:    user2.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})
@@ -48,8 +67,18 @@ func TestGetTransfer(t *testing.T) {
 
 	// creating two accounts
 
+	userArgs1 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user1, err := testStore.CreateUser(context.Background(), userArgs1)
+	assert.NoError(err)
+
 	account1, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user1.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})
@@ -57,8 +86,18 @@ func TestGetTransfer(t *testing.T) {
 	assert.NotNil(account1)
 	assert.NoError(err)
 
+	userArgs2 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user2, err := testStore.CreateUser(context.Background(), userArgs2)
+	assert.NoError(err)
+
 	account2, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the real legend",
+		Owner:    user2.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})
@@ -89,8 +128,18 @@ func TestListTransfer(t *testing.T) {
 
 	// creating two accounts
 
+	userArgs1 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user1, err := testStore.CreateUser(context.Background(), userArgs1)
+	assert.NoError(err)
+
 	account1, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user1.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})
@@ -98,8 +147,18 @@ func TestListTransfer(t *testing.T) {
 	assert.NotNil(account1)
 	assert.NoError(err)
 
+	userArgs2 := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user2, err := testStore.CreateUser(context.Background(), userArgs2)
+	assert.NoError(err)
+
 	account2, err := testStore.CreateAccount(context.Background(), CreateAccountParams{
-		Owner:    "Shubham the real legend",
+		Owner:    user2.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	})

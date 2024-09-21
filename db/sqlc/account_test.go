@@ -10,8 +10,20 @@ import (
 
 func TestCreateAccount(t *testing.T) {
 	assert := assert.New(t)
+
+	// now that account onwer must be a user, we will first create a user 
+	userArgs := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user, err := testStore.CreateUser(context.Background(), userArgs)
+	assert.NoError(err)
+
 	args := CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -21,7 +33,7 @@ func TestCreateAccount(t *testing.T) {
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	assert.Equal(account.Owner, "Shubham the legend")
+	assert.Equal(account.Owner, user.Username)
 	assert.Equal(account.Balance, args.Balance)
 	assert.Equal(account.Currency, args.Currency)
 
@@ -32,8 +44,18 @@ func TestCreateAccount(t *testing.T) {
 func TestGetAccount(t *testing.T) {
 	assert := assert.New(t)
 
+	userArgs := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user, err := testStore.CreateUser(context.Background(), userArgs)
+	assert.NoError(err)
+
 	args := CreateAccountParams{
-		Owner:    "Shubham the OG",
+		Owner:    user.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -48,7 +70,7 @@ func TestGetAccount(t *testing.T) {
 	assert.NotNil(acc)
 	assert.NoError(err)
 
-	assert.Equal(acc.Owner, "Shubham the OG")
+	assert.Equal(acc.Owner, user.Username)
 	assert.Equal(acc.Balance, args.Balance)
 	assert.Equal(acc.Currency, args.Currency)
 }
@@ -56,8 +78,18 @@ func TestGetAccount(t *testing.T) {
 func TestUpdateAccount(t *testing.T) {
 	assert := assert.New(t)
 
+	userArgs := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user, err := testStore.CreateUser(context.Background(), userArgs)
+	assert.NoError(err)
+
 	args := CreateAccountParams{
-		Owner:    "Shubham the OG",
+		Owner:    user.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -77,15 +109,25 @@ func TestUpdateAccount(t *testing.T) {
 	assert.NotNil(acc)
 	assert.NoError(err)
 
-	assert.Equal(acc.Owner, "Shubham the OG")
+	assert.Equal(acc.Owner, user.Username)
 	assert.Equal(acc.Balance, updateParams.Balance)
 }
 
 func TestDeleteAccount(t *testing.T) {
 	assert := assert.New(t)
 
+	userArgs := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user, err := testStore.CreateUser(context.Background(), userArgs)
+	assert.NoError(err)
+
 	args := CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -110,8 +152,19 @@ func TestDeleteAccount(t *testing.T) {
 
 func TestListAccounts(t *testing.T) {
 	assert := assert.New(t)
+	
+	userArgs := CreateUserParams{
+		Username:    util.RandomString(10),
+		HashedPassword:  "secret",
+		FullName: "Shubham Singh Mahar",
+		Email: util.RandomEmail(),
+	}
+
+	user, err := testStore.CreateUser(context.Background(), userArgs)
+	assert.NoError(err)
+
 	args := CreateAccountParams{
-		Owner:    "Shubham the legend",
+		Owner:    user.Username,
 		Balance:  util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -121,19 +174,8 @@ func TestListAccounts(t *testing.T) {
 	assert.NotNil(account)
 	assert.NoError(err)
 
-	argsTwo := CreateAccountParams{
-		Owner:    "Shubham the legend",
-		Balance:  util.RandomBalance(),
-		Currency: util.RandomCurrency(),
-	}
-
-	accountTwo, err := testStore.CreateAccount(context.Background(), argsTwo)
-
-	assert.NotNil(accountTwo)
-	assert.NoError(err)
-
 	lap := ListAccountsParams{
-		Owner:  "Shubham the legend",
+		Owner:  user.Username,
 		Limit:  2,
 		Offset: 0,
 	}
@@ -141,7 +183,7 @@ func TestListAccounts(t *testing.T) {
 	accounts, err := testStore.ListAccounts(context.Background(), lap)
 
 	assert.NoError(err)
-	assert.Len(accounts, 2)
+	assert.Len(accounts, 1)
 
 	for _, a := range accounts {
 		assert.NotEmpty(a)
