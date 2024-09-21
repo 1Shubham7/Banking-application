@@ -6,6 +6,7 @@ import (
 
 	db "github.com/1shubham7/bank/db/sqlc"
 	"github.com/gin-gonic/gin"
+	"github.com/lib/pq"
 )
 
 type createAccountRequest struct {
@@ -32,6 +33,14 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	account, err := server.store.CreateAccount(ctx, arg)
 
 	if err != nil {
+		// becuase it will not be appropriate to give a 500 code for adding an account owner without it being a user
+		if pqErr, ok := err.(*pq.Error); ok {
+			switch pqErr.Code.Name(){
+			case "foreign_key_voilation", "unique_voilation":
+				ctx.JSON(http.StatusForbidden, errorResponse(err))
+				return
+			}
+		} 
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
