@@ -56,7 +56,7 @@ func (server *Server) CreateUser(ctx *gin.Context) {
 				ctx.JSON(http.StatusForbidden, errorResponse(err))
 				return
 			}
-		} 
+		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
