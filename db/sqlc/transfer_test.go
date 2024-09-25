@@ -13,10 +13,10 @@ func TestCreateTransfer(t *testing.T) {
 
 	// creating two accounts
 	userArgs1 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user1, err := testStore.CreateUser(context.Background(), userArgs1)
@@ -32,10 +32,10 @@ func TestCreateTransfer(t *testing.T) {
 	assert.NoError(err)
 
 	userArgs2 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user2, err := testStore.CreateUser(context.Background(), userArgs2)
@@ -68,10 +68,10 @@ func TestGetTransfer(t *testing.T) {
 	// creating two accounts
 
 	userArgs1 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user1, err := testStore.CreateUser(context.Background(), userArgs1)
@@ -87,10 +87,10 @@ func TestGetTransfer(t *testing.T) {
 	assert.NoError(err)
 
 	userArgs2 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user2, err := testStore.CreateUser(context.Background(), userArgs2)
@@ -129,10 +129,10 @@ func TestListTransfer(t *testing.T) {
 	// creating two accounts
 
 	userArgs1 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user1, err := testStore.CreateUser(context.Background(), userArgs1)
@@ -148,10 +148,10 @@ func TestListTransfer(t *testing.T) {
 	assert.NoError(err)
 
 	userArgs2 := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user2, err := testStore.CreateUser(context.Background(), userArgs2)

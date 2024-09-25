@@ -11,12 +11,12 @@ import (
 func TestCreateAccount(t *testing.T) {
 	assert := assert.New(t)
 
-	// now that account onwer must be a user, we will first create a user 
+	// now that account onwer must be a user, we will first create a user
 	userArgs := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), userArgs)
@@ -45,10 +45,10 @@ func TestGetAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	userArgs := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), userArgs)
@@ -79,10 +79,10 @@ func TestUpdateAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	userArgs := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), userArgs)
@@ -117,10 +117,10 @@ func TestDeleteAccount(t *testing.T) {
 	assert := assert.New(t)
 
 	userArgs := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), userArgs)
@@ -152,12 +152,12 @@ func TestDeleteAccount(t *testing.T) {
 
 func TestListAccounts(t *testing.T) {
 	assert := assert.New(t)
-	
+
 	userArgs := CreateUserParams{
-		Username:    util.RandomString(10),
-		HashedPassword:  "secret",
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		Username:       util.RandomString(10),
+		HashedPassword: "secret",
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), userArgs)

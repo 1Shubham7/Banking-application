@@ -2,10 +2,10 @@ package util
 
 // supported currencies
 const (
-	INR = "INR"
-	USD = "USD"
-	EUR = "EUR"
-	CAD = "CAD"
+	INR  = "INR"
+	USD  = "USD"
+	EUR  = "EUR"
+	CAD  = "CAD"
 	YUAN = "YUAN"
 )
 

@@ -31,7 +31,7 @@ func main() {
 	// testQueries = New(connPool)
 	store := db.NewStore(connPool)
 	server, err := api.NewServer(config, store)
-	if err != nil{
+	if err != nil {
 		log.Fatal("Can't create server: ", err)
 	}
 

@@ -30,7 +30,7 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	server := &Server{
 		store:      store,
 		tokenMaker: tokenMaker,
-		config: config,
+		config:     config,
 	}
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {

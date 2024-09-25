@@ -18,8 +18,8 @@ type createUserRequest struct {
 }
 
 // let's not return User in createUser rather remove password and then return it, to address security concerns
-type userResponse struct{ // User without HashedPassword field
-	Username       string `json:"username"`
+type userResponse struct { // User without HashedPassword field
+	Username          string    `json:"username"`
 	FullName          string    `json:"full_name"`
 	Email             string    `json:"email"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
@@ -28,11 +28,11 @@ type userResponse struct{ // User without HashedPassword field
 
 func newUserResponse(user db.User) userResponse {
 	return userResponse{
-		Username: user.Username,
-		FullName: user.FullName,
-		Email: user.Email,
+		Username:          user.Username,
+		FullName:          user.FullName,
+		Email:             user.Email,
 		PasswordChangedAt: user.PasswordChangedAt,
-		CreatedAt: user.CreatedAt,
+		CreatedAt:         user.CreatedAt,
 	}
 }
 
@@ -51,17 +51,17 @@ func (server *Server) CreateUser(ctx *gin.Context) {
 	}
 
 	arg := db.CreateUserParams{
-		Username:    req.Username,
-		HashedPassword:  hashPassword,
-		FullName: req.FullName,
-		Email: req.Email,
+		Username:       req.Username,
+		HashedPassword: hashPassword,
+		FullName:       req.FullName,
+		Email:          req.Email,
 	}
 
 	user, err := server.store.CreateUser(ctx, arg)
 
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
-			switch pqErr.Code.Name(){
+			switch pqErr.Code.Name() {
 			case "unique_voilation":
 				ctx.JSON(http.StatusForbidden, errorResponse(err))
 				return

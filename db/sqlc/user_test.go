@@ -13,10 +13,10 @@ func TestCreateUser(t *testing.T) {
 
 	password, _ := util.HashPassword(util.RandomString(6))
 	args := CreateUserParams{
-		Username:    util.RandomString(10),
+		Username:       util.RandomString(10),
 		HashedPassword: password,
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), args)
@@ -37,10 +37,10 @@ func TestGetUser(t *testing.T) {
 	assert := assert.New(t)
 	password, _ := util.HashPassword(util.RandomString(6))
 	args := CreateUserParams{
-		Username:    util.RandomString(10),
+		Username:       util.RandomString(10),
 		HashedPassword: password,
-		FullName: "Shubham Singh Mahar",
-		Email: util.RandomEmail(),
+		FullName:       "Shubham Singh Mahar",
+		Email:          util.RandomEmail(),
 	}
 
 	user, err := testStore.CreateUser(context.Background(), args)
