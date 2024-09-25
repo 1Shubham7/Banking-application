@@ -20,8 +20,9 @@ type Server struct {
 }
 
 func NewServer(config util.Config, store db.Store) (*Server, error) {
-
 	router := gin.Default()
+
+	// to change it to JWT, simple replace NewPasetoMaker to NewJWTMaker
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("can't create token maker: %d", err)
