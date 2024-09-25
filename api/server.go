@@ -1,6 +1,11 @@
 package api
 
 import (
+	"fmt"
+
+	"github.com/1shubham7/bank/token"
+	"github.com/1shubham7/bank/util"
+
 	db "github.com/1shubham7/bank/db/sqlc"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -8,13 +13,25 @@ import (
 )
 
 type Server struct {
-	store  db.Store
-	router *gin.Engine
+	store      db.Store
+	router     *gin.Engine
+	tokenMaker token.Maker
+	config     util.Config
 }
 
-func NewServer(store db.Store) *Server {
-	server := &Server{store: store}
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+
 	router := gin.Default()
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		return nil, fmt.Errorf("Can't create token maker: %d", err)
+	}
+
+	server := &Server{
+		store:      store,
+		tokenMaker: tokenMaker,
+		config: config,
+	}
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		// currency is the name of validator, so now we can say "currency" rather than "oneof=CAD INR" ...
@@ -30,7 +47,7 @@ func NewServer(store db.Store) *Server {
 	router.POST("/transfers", server.createTransfer)
 
 	server.router = router
-	return server
+	return server, nil
 }
 
 func errorResponse(err error) gin.H {

@@ -29,7 +29,7 @@ func TestGetAccount(t *testing.T) {
 
 	store := mockdb.NewMockStore(ctrl)
 
-	server := NewServer(store)
+	server := NewTestServer(t, store)
 	recorder := httptest.NewRecorder()
 
 	store.EXPECT().
@@ -61,7 +61,7 @@ func TestCreateAccount(t *testing.T) {
 
 	store := mockdb.NewMockStore(ctrl)
 
-	server := NewServer(store)
+	server := NewTestServer(t, store)
 	recorder := httptest.NewRecorder()
 
 	arg := db.CreateAccountParams{
