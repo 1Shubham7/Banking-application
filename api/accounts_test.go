@@ -76,7 +76,6 @@ func TestCreateAccount(t *testing.T) {
 		Return(account, nil)
 
 	reqBody := createAccountRequest{
-		Owner:    account.Owner,
 		Balance:  account.Balance,
 		Currency: account.Currency,
 	}
