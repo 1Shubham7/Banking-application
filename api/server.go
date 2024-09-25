@@ -24,7 +24,7 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	router := gin.Default()
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
-		return nil, fmt.Errorf("Can't create token maker: %d", err)
+		return nil, fmt.Errorf("can't create token maker: %d", err)
 	}
 
 	server := &Server{

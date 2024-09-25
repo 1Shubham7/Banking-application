@@ -18,12 +18,22 @@ type createUserRequest struct {
 }
 
 // let's not return User in createUser rather remove password and then return it, to address security concerns
-type createUserResponse struct{ // User without HashedPassword field
+type userResponse struct{ // User without HashedPassword field
 	Username       string `json:"username"`
 	FullName          string    `json:"full_name"`
 	Email             string    `json:"email"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
 	CreatedAt         time.Time `json:"created_at"`
+}
+
+func newUserResponse(user db.User) userResponse {
+	return userResponse{
+		Username: user.Username,
+		FullName: user.FullName,
+		Email: user.Email,
+		PasswordChangedAt: user.PasswordChangedAt,
+		CreatedAt: user.CreatedAt,
+	}
 }
 
 func (server *Server) CreateUser(ctx *gin.Context) {
@@ -61,13 +71,7 @@ func (server *Server) CreateUser(ctx *gin.Context) {
 		return
 	}
 
-	resp := createUserResponse{
-		Username: user.Username,
-		FullName: user.FullName,
-		Email: user.Email,
-		PasswordChangedAt: user.PasswordChangedAt,
-		CreatedAt: user.CreatedAt,
-	}
+	resp := newUserResponse(user)
 
 	ctx.JSON(http.StatusOK, resp)
 }
