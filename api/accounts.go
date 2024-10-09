@@ -89,7 +89,7 @@ type listAccountRequest struct {
 	PageSize int32 `form:"page_size" binding:"required, min=3, max=20"`
 }
 
-func (server *Server) listAccount(ctx *gin.Context) {
+func (server *Server) listAccounts(ctx *gin.Context) {
 	var req listAccountRequest
 
 	err := ctx.ShouldBindQuery(&req)

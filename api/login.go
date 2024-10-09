@@ -24,6 +24,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	user, err := server.store.GetUser(ctx, req.Username)
@@ -48,16 +49,15 @@ func (server *Server) loginUser(ctx *gin.Context) {
 		user.Username,
 		server.config.AccessTokenDuration,
 	)
-
 	//unexcepted error occurs
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	rsp := loginUserResponse{
 		AccessToken: accessToken,
 		User:        newUserResponse(user),
 	}
-
 	ctx.JSON(http.StatusOK, rsp)
 }
