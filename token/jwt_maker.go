@@ -23,7 +23,7 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 }
 
 func (maker *JWTmaker) CreateToken(username string, duration time.Duration) (string, error) {
-	payload, err := NewPayLoad(username, duration)
+	payload, err := NewPayload(username, duration)
 	if err != nil {
 		return "", err
 	}

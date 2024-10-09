@@ -7,6 +7,11 @@ import (
 	"github.com/google/uuid"
 )
 
+var (
+	ErrExpiredToken = errors.New("token has already expired")
+	ErrInvalidToken = errors.New("token is invalid")
+)
+
 type Payload struct {
 	ID       uuid.UUID `json:"id"`
 	Username string    `json:"username"`
@@ -14,7 +19,7 @@ type Payload struct {
 	Expiry   time.Time `json:"expired_at"`
 }
 
-func NewPayLoad(username string, duration time.Duration) (*Payload, error) {
+func NewPayload(username string, duration time.Duration) (*Payload, error) {
 	tokenID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
@@ -30,15 +35,9 @@ func NewPayLoad(username string, duration time.Duration) (*Payload, error) {
 	return payload, nil
 }
 
-var (
-	ErrExpiredToken = errors.New("token has already expired")
-	ErrInvalidToken = errors.New("token is invalid")
-)
-
 func (payload *Payload) Valid() error {
 	if time.Now().After(payload.Expiry) {
 		return ErrExpiredToken
 	}
-
 	return nil
 }
