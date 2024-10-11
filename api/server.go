@@ -20,12 +20,11 @@ type Server struct {
 }
 
 func NewServer(config util.Config, store db.Store) (*Server, error) {
-	router := gin.Default()
 
 	// to change it to JWT, simple replace NewPasetoMaker to NewJWTMaker
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
-		return nil, fmt.Errorf("can't create token maker: %d", err)
+		return nil, fmt.Errorf("can't create token maker: %w", err)
 	}
 
 	server := &Server{
@@ -39,19 +38,24 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 		v.RegisterValidation("currency", validCurrency)
 	}
 
+	server.setupRouter()
+	return server, nil
+}
+
+func (server *Server) setupRouter() {
+	router := gin.Default()
+
 	router.POST("/users", server.createUser)
 	router.POST("/users/login", server.loginUser)
 
 	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker))
-
-	// all of these will require middleware therefore "authRoutes rather than router"
+	authRoutes.POST("/accounts", server.createAccount)
 	authRoutes.GET("/accounts/:id", server.getAccount)
 	authRoutes.GET("/accounts", server.listAccounts)
-	authRoutes.POST("/accounts", server.createAccount)
+
 	authRoutes.POST("/transfers", server.createTransfer)
 
 	server.router = router
-	return server, nil
 }
 
 func errorResponse(err error) gin.H {
