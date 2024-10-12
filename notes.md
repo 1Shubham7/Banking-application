@@ -74,3 +74,30 @@ Building Docker image:
 docker build -t smyik:latest .
 ```
 
+```
+docker run --name smyik -p 8080:8080 -e GIN_MODE=release smyik:latest
+```
+
+we are creating a docker network so that the smyik and postgres container can communicated within the same network, this could also be resolved my specifying the same ip address for smyik as it is for Postgres but when we restart a container the IP may change, so it is not a  best practice:
+
+```
+docker run --name smyik -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://roo
+t:secret@172.17.0.2:5432/simple_bank?sslmode=disable" smyik:latest
+```
+
+So we will create our own network and put smyik and postgres containers in this network:
+
+```
+docker network create smyik-network
+```
+
+```
+docker network connect smyik-network postgres12
+```
+
+(later we will make this change in Makefile itself so that it happens automatically)
+
+```
+docker run --name smyik --network smyik-network -p  8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" smyik:latest
+```
+
