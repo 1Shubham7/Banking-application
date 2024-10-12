@@ -1,21 +1,16 @@
-FROM golang:1.23.0-alpine3.20
-
-# this will be our working dir
+# build stage
+FROM golang:1.23.0-alpine3.20 AS builder
 WORKDIR /app
-
-# now lets copy all the ifles to the app folder
-# copy source destination, and the our destination is
-# /app in . dir (base dir)
 COPY . .
-
-# now let's build the binary (I am making a binary called
-# shubham from main.go)
 RUN go build -o shubham main.go
 
-# this is just for documentation on which port will be exposed
+# Run stage
+FROM alpine:3.20
+WORKDIR /app
+
+# means copy from the builder stage and put it in /app in . dir
+COPY --from=builder /app/shubham .
+
 EXPOSE 8080
 
-# this is the default command that will run when the container starts
-# it is an array for CLI arguments
-# this will run the executable file
 CMD [ "/app/shubham" ]
