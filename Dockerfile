@@ -10,6 +10,7 @@ WORKDIR /app
 
 # means copy from the builder stage and put it in /app in . dir
 COPY --from=builder /app/shubham .
+COPY app.env .
 
 EXPOSE 8080
 

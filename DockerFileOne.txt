@@ -2,7 +2,6 @@
 # but the size of the size of the image was too big so 
 # I had to create a new one.
 
-
 FROM golang:1.23.0-alpine3.20
 
 # this will be our working dir

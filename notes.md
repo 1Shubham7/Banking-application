@@ -62,3 +62,15 @@ Then you can get that account:
 curl -X GET http://localhost:8080/accounts/1 -H "Authorization: Bearer <TOKEN>"
 ```
 
+
+
+
+
+
+
+Building Docker image:
+
+```
+docker build -t smyik:latest .
+```
+
