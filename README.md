@@ -17,3 +17,12 @@ This project is a banking application built using Go and PostgreSQL, designed to
 **Testing:** Comprehensive unit tests with GoMock for mocking
 **Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
 **Build and Commands:** Managed using Makefile
+
+## Steps to reproduce:
+
+### Step 1. Clone the repository:
+
+### Step 2. 
+
+```
+make server
