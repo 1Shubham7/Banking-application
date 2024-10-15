@@ -38,7 +38,7 @@ docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e  POSTGRES_PAS
 sudo go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.18.1
 ```
 
-## Step 4. Now you can simply run the application by entering the following make command:
+### Step 4. Now you can simply run the application by entering the following make command:
 
 ```
 make server
