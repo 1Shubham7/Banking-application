@@ -51,14 +51,13 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		Amount:        req.Amount,
 	}
 
-	transferTransectionResult, err := server.store.TransferTransection(ctx, arg)
-
+	result, err := server.store.TransferTransection(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
-	ctx.JSON(http.StatusOK, transferTransectionResult)
+	ctx.JSON(http.StatusOK, result)
 }
 
 func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency string) (db.Account, bool) {
