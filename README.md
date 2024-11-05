@@ -10,10 +10,38 @@ This project is a banking application built using Go and PostgreSQL, designed to
 
 ### Tech Stack
 
-**Backend Language:** Go (Golang)
-**Database:** PostgreSQL
-**ORM/SQL Generator:** SQLC
-**Validation:** go-playground/validator
-**Testing:** Comprehensive unit tests with GoMock for mocking
-**Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
-**Build and Commands:** Managed using Makefile
+- **Backend Language:** Go (Golang)
+- **Database:** PostgreSQL
+- **ORM/SQL Generator:** SQLC
+- **Validation:** go-playground/validator
+- **Testing:** Comprehensive unit tests with GoMock for mocking
+- **Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
+- **Build and Commands:** Managed using Makefile
+
+## Steps to reproduce:
+
+### Step 1. Clone the repository:
+
+```
+git clone https://github.com/1Shubham7/Banking-application.git
+```
+
+### Step 2. Start Postgres DB using the Postgres container:
+
+```
+docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e  POSTGRES_PASSWORD=secret -d postgres:12-alpine
+```
+
+### Step 3. Install `go-migrate` with root previliges:
+
+```
+sudo go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.18.1
+```
+
+### Step 4. Now you can simply run the application by entering the following make command:
+
+```
+make server
+```
+
+### Hurray! your appilcation is running on PORT 8080
