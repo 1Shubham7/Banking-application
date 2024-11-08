@@ -103,3 +103,12 @@ docker network connect smyik-network postgres12
 docker run --name smyik --network smyik-network -p  8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" smyik:latest
 ```
 
+
+
+
+
+
+
+## AWS
+
+We will deploy the app in Amazon ECR. we will use [this github link](https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions) for github actions for deployment.
