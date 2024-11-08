@@ -45,3 +45,9 @@ make server
 ```
 
 ### Hurray! your appilcation is running on PORT 8080
+
+
+https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5WO4RO683
+
+
+[![codecov](https://codecov.io/gh/1Shubham7/Banking-application/graph/badge.svg?token=X5WO4RO683)](https://codecov.io/gh/1Shubham7/Banking-application)
