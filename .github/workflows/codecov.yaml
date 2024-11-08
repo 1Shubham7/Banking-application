@@ -1,28 +1,20 @@
-name: Run tests and upload coverage
+name: Test and coverage
 
-on: 
-  push
+on: [push, pull_request]
 
 jobs:
-  test:
-    name: Run tests and collect coverage
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
-          fetch-depth: 0
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-
-      - name: Install dependencies
+          go-version: 'stable'
+      - name: Gather dependencies
         run: go mod download
-
-      - name: Run tests
-        run: go test -coverprofile=coverage.txt
-
-      - name: Upload results to Codecov
+      - name: Run coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_ORG_TOKEN }}
