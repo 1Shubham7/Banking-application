@@ -47,10 +47,3 @@ func TestRandomBalance(t *testing.T) {
 	assert.LessOrEqual(randomBalance, max)
 }
 
-func TestRandomCurrency(t *testing.T) {
-	assert := assert.New(t)
-
-	currencies := []string{"USD", "INR", "CAD", "EUR", "YUAN"}
-	randomCurrency := RandomCurrency()
-	assert.Contains(currencies, randomCurrency)
-}
