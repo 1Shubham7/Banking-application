@@ -38,4 +38,4 @@ i_love_you:
 start_app:
 	docker run --name smyik --network smyik-network -p  8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" smyik:latest
 
-.PHONY: createdb dropdb postgres migrateup migratedown test server mock i_love_you migrateup1 migratedown1 run_docker_image
+.PHONY: createdb dropdb postgres migrateup migratedown test server mock i_love_you migrateup1 migratedown1 run_docker_image sqlc

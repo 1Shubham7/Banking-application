@@ -12,7 +12,7 @@ This project is a banking application built using Go and PostgreSQL, designed to
 
 - **Backend Language:** Go (Golang)
 - **Database:** PostgreSQL
-- **ORM/SQL Generator:** SQLC
+- **ORM/SQL Generator:** [SQLC](https://sqlc.dev/)
 - **Validation:** go-playground/validator
 - **Testing:** Comprehensive unit tests with GoMock for mocking
 - **Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
