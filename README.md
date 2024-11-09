@@ -18,6 +18,14 @@ This project is a banking application built using Go and PostgreSQL, designed to
 - **Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
 - **Build and Commands:** Managed using Makefile
 
+## How to use
+
+The only prerequisit to this application are Docker and `make`, you can simply install Docker and `make` and then run the following command to start the application:
+
+```
+make start_app
+```
+
 ## Steps to reproduce:
 
 ### Step 1. Clone the repository:
