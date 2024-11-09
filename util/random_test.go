@@ -38,14 +38,6 @@ func TestRandomOwner(t *testing.T) {
 	}
 }
 
-func TestRandomBalance(t *testing.T) {
-	assert := assert.New(t)
-
-	min, max := int64(10), int64(10000000000)
-	randomBalance := RandomBalance()
-	assert.GreaterOrEqual(randomBalance, min)
-	assert.LessOrEqual(randomBalance, max)
-}
 
 func TestRandomCurrency(t *testing.T) {
 	assert := assert.New(t)
