@@ -22,6 +22,10 @@ This project is a banking application built using Go and PostgreSQL, designed to
 
 The only prerequisit to this application are Docker and `make`, you can simply install Docker and `make` and then run the following command to start the application:
 
+`make postgres`
+
+`make createdb`
+
 ```
 make start_app
 ```
