@@ -53,10 +53,10 @@ jobs:
 
       # These steps are for uploading coverage to codecov
 
-    - name: Run coverage
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+    # - name: Run coverage
+    #   run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
-    - name: Upload results to Codecov
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+    # - name: Upload results to Codecov
+    #   uses: codecov/codecov-action@v4
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
