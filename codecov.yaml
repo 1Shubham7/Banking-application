@@ -5,7 +5,9 @@ coverage:
         target: auto
         threshold: 0%
         base: auto
-
+    patch:
+      default:
+        informational: true  # makes checks informational initially
 comment:
   layout: "diff, flags, files"
   behavior: default
