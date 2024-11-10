@@ -38,4 +38,11 @@ i_love_you:
 start_app:
 	docker run --name smyik --network smyik-network -p  8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" smyik:latest
 
-.PHONY: createdb dropdb postgres migrateup migratedown test server mock i_love_you migrateup1 migratedown1 run_docker_image sqlc
+db_docs:
+	dbdocs build doc/database.dbml --project Smyik
+
+# to generate sql schema from  dbml
+sql_schema:
+	dbml2sql --postgres -o doc/schema.sql doc/database.dbml
+
+.PHONY: createdb dropdb postgres migrateup migratedown test server mock i_love_you migrateup1 migratedown1 run_docker_image sqlc db_docs  sql_schema

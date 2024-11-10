@@ -1,7 +1,7 @@
-Project simple_bank {
+Project smyik_db {
   database_type: 'PostgreSQL'
   Note: '''
-    # Simple Bank Database
+    # Smyik Database
   '''
 }
 
