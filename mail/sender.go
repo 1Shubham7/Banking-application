@@ -11,7 +11,7 @@ import (
 const (
 	smtpAuthAddress = "smpt.gmail.com"
 	smtpServerAddress = "smpt.gmail.com:587" // 587 is recommended port for sending email securely 
-	// as it allows for encryption between the client (your application) and the server (Gmail’s SMTP
+	// as it allows for encryption between the client (your application) and the server (Gmail’s SMTP server)
 )
 
 type EmailSender interface {
