@@ -63,3 +63,5 @@ https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5
 
 
 [![codecov](https://codecov.io/gh/1Shubham7/Banking-application/graph/badge.svg?token=X5WO4RO683)](https://codecov.io/gh/1Shubham7/Banking-application)
+
+https://dbdocs.io/1Shubham7/Smyik
