@@ -9,8 +9,8 @@ import (
 
 // we use gmail as host from  sending mails
 const (
-	smtpAuthAddress = "smpt.gmail.com"
-	smtpServerAddress = "smpt.gmail.com:587" // 587 is recommended port for sending email securely 
+	smtpAuthAddress   = "smtp.gmail.com"
+	smtpServerAddress = "smtp.gmail.com:587" // 587 is recommended port for sending email securely 
 	// as it allows for encryption between the client (your application) and the server (Gmail’s SMTP server)
 )
 
