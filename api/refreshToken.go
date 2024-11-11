@@ -14,7 +14,7 @@ type renewAccessTokenRequest struct {
 }
 
 type renewAccessTokenResponse struct {
-	AccessToken string       `json:"access_token"`
+	AccessToken          string    `json:"access_token"`
 	AccessTokenExpiresAt time.Time `json:"access_token_expires_at"`
 }
 
@@ -28,7 +28,7 @@ func (server *Server) renewAccessToken(ctx *gin.Context) {
 	}
 
 	refreshPayload, err := server.tokenMaker.VerifyToken(req.RefreshToken)
-	if err != nil{
+	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 		return
 	}
@@ -49,12 +49,12 @@ func (server *Server) renewAccessToken(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 	}
 
-	if session.Username != refreshPayload.Username{
+	if session.Username != refreshPayload.Username {
 		err := fmt.Errorf("incorrect session user")
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 	}
 
-	if session.RefreshToken != req.RefreshToken{
+	if session.RefreshToken != req.RefreshToken {
 		err := fmt.Errorf("mismatch session  token")
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
 	}
@@ -74,7 +74,7 @@ func (server *Server) renewAccessToken(ctx *gin.Context) {
 	}
 
 	rsp := renewAccessTokenResponse{
-		AccessToken: accessToken,
+		AccessToken:          accessToken,
 		AccessTokenExpiresAt: accessPayload.Expiry,
 	}
 	ctx.JSON(http.StatusOK, rsp)

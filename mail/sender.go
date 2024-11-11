@@ -10,7 +10,7 @@ import (
 // we use gmail as host from  sending mails
 const (
 	smtpAuthAddress   = "smtp.gmail.com"
-	smtpServerAddress = "smtp.gmail.com:587" // 587 is recommended port for sending email securely 
+	smtpServerAddress = "smtp.gmail.com:587" // 587 is recommended port for sending email securely
 	// as it allows for encryption between the client (your application) and the server (Gmail’s SMTP server)
 )
 
@@ -18,16 +18,16 @@ type EmailSender interface {
 	SendEmail(subject, content string, to, cc, bcc, attachFiles []string) error
 }
 
-type GmailSender struct{
-	name string
-	fromEmail string
+type GmailSender struct {
+	name              string
+	fromEmail         string
 	fromEmailPassword string
 }
 
 func NewGmailSender(name, fromEmail, fromEmailPassword string) EmailSender {
 	return &GmailSender{
-		name: name,
-		fromEmail: fromEmail,
+		name:              name,
+		fromEmail:         fromEmail,
 		fromEmailPassword: fromEmailPassword,
 	}
 }
@@ -42,8 +42,8 @@ func (sender *GmailSender) SendEmail(subject, content string, to, cc, bcc, attac
 	e.Bcc = bcc
 
 	for _, file := range attachFiles {
-		_,err := e.AttachFile(file)
-		if err != nil{
+		_, err := e.AttachFile(file)
+		if err != nil {
 			return fmt.Errorf("issue in  attaching file %s: %w", file, err)
 		}
 	}

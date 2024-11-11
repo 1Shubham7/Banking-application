@@ -9,7 +9,7 @@ import (
 
 func TestSendEmail(t *testing.T) {
 	assert := assert.New(t)
-	
+
 	config, err := util.LoadConfig("..")
 	assert.NoError(err)
 
