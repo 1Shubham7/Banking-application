@@ -1,14 +1,6 @@
-# Banking application
-
-A project made using Postgres, Go, 
-
-Database Schema- https://dbdiagram.io/d/665d6000b65d93387953a9f5
-
-https://dbdocs.io/1Shubham7/Smyik
-
 # Banking Application
 
-This project is a banking application built using Go and PostgreSQL, designed to showcase essential features of a modern backend system. I have used Go as the backend language, PostgreSQL as the database, SQLC for generating type-safe SQL queries, and `go-playground/validator` for input validation. The project also includes comprehensive unit tests written with `testify/assert` assertion library and `GoMock` for mocking dependencies if needed. The project also includes CI tests written using GitHub workflows and code coverage is also tracked and uploaded to Codecov ([find it here](https://app.codecov.io/gh/1shubham7/banking-application)). Build automation and commands are managed using Makefile.
+This project is a banking application built using Go + PostgreSQL + Docker. I have used Go as the backend language, PostgreSQL as the database, SQLC for generating type-safe SQL queries, and `go-playground/validator` for input validation. The project also includes comprehensive unit tests written with `testify` and `GoMock` for mocking dependencies. The project also includes CI tests written using GitHub workflows and code coverage is also tracked and uploaded to Codecov ([find it here](https://app.codecov.io/gh/1shubham7/banking-application)). Build automation and commands are managed using Makefile.
 
 ### Tech Stack
 
@@ -17,7 +9,8 @@ This project is a banking application built using Go and PostgreSQL, designed to
 - **ORM/SQL Generator:** [SQLC](https://sqlc.dev/)
 - **Validation:** go-playground/validator
 - **Testing:** Comprehensive unit tests with GoMock for mocking
-- **Code Coverage:** Coverage reports uploaded to Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
+- **CI Pipeline:** GitHub Actions for CI tests and code coverage uploading, 
+- **Code Coverage:** Tracking test coverage of the project using Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
 - **Build and Commands:** Managed using Makefile
 
 ## How to use
