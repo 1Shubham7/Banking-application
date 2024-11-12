@@ -3,7 +3,6 @@ package mail
 import (
 	"fmt"
 	"net/smtp"
-
 	"github.com/jordan-wright/email"
 )
 
@@ -34,7 +33,7 @@ func NewGmailSender(name, fromEmail, fromEmailPassword string) EmailSender {
 
 func (sender *GmailSender) SendEmail(subject, content string, to, cc, bcc, attachFiles []string) error {
 	e := email.NewEmail()
-	e.From = fmt.Sprintf("%s <%s>", sender.name, sender.fromEmail)
+	e.From = sender.name
 	e.Subject = subject
 	e.HTML = []byte(content)
 	e.To = to
@@ -49,7 +48,7 @@ func (sender *GmailSender) SendEmail(subject, content string, to, cc, bcc, attac
 	}
 
 	// authenticating with smtp server
-	smtpAuth := smtp.PlainAuth("", sender.name, sender.fromEmailPassword, smtpAuthAddress)
+	smtpAuth := smtp.PlainAuth("", sender.fromEmail, sender.fromEmailPassword, smtpAuthAddress)
 	err := e.Send(smtpServerAddress, smtpAuth)
 	return err
 }

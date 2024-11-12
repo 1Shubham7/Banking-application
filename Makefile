@@ -25,7 +25,7 @@ sqlc:
 	sqlc generate
 
 test:
-	go test -v -cover ./... # this means that all the tests in project will run
+	go test -v -cover -short ./...
 
 server:
 	go run main.go
