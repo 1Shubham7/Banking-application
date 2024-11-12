@@ -6,7 +6,6 @@
   ![GitHub language count](https://img.shields.io/github/languages/count/1shubham7/banking-application)
   ![GitHub top language](https://img.shields.io/github/languages/top/1shubham7/banking-application)
   ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/1shubham7/banking-application/Test-and-Coverage)
-  
 
 </div>
 
@@ -68,7 +67,8 @@ make server
 ## 🤝 Contributing
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/1shubham7/banking-application)
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/1shubham7/banking-application)
-  ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/1shubham7/banking-application)
+  ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/1shubham7/banking-application) 
+  ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/1shubham7/banking-application) 
 
 Whether you have feedback on features, have encountered any bugs, or have suggestions for enhancements, we're eager to hear from you. Your insights help us make our application more robust and user-friendly. Please feel free to contribute by [submitting an issue](https://github.com/Abblix/Oidc.Server/issues) or [joining the discussions](https://github.com/orgs/Abblix/discussions). Each contribution helps us grow and improve. If you would like to contribute to this project, please read the [Contribution guidelines](CONTRIBUTING.md) and make sure to follow the [Code Of Conduct](CODE_OF_CONDUCT.md).
 
