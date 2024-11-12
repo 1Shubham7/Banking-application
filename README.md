@@ -77,3 +77,4 @@ We appreciate your support and look forward to making our product even better wi
 ## 📃 License
 ![GitHub License](https://img.shields.io/github/license/1shubham7/banking-application)
 
+This product is distributed under a Apache License Version 2.0, January 2004. You can review the full license agreement at [LICENSE](LICENSE)
