@@ -41,7 +41,7 @@ To build the packages, follow these steps:
 ```shell
 # Open a terminal (Command Prompt or PowerShell for Windows, Terminal for macOS or Linux)
 
-# Ensure Git is installed
+# Ensure Git and make is installed
 # Visit https://git-scm.com to download and install console Git if not already installed
 
 # Clone the repository
@@ -53,6 +53,10 @@ cd Banking-application
 make postgres
 
 make createdb
+
+make start_prod
+
+# If you want to run it through local image:
 
 # Install `go-migrate` with root previliges
 sudo go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.18.1
