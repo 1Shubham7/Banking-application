@@ -1,2 +1,2 @@
 *.log
-app.env
+*.env
