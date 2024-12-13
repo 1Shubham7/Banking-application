@@ -30,7 +30,7 @@ This project is a banking application built using Go + PostgreSQL + Docker. I ha
 - **Code Coverage:** Tracking test coverage of the project using Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
 - **Build and Commands:** Managed using Makefile
 
-[!CodeCov](https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5WO4RO683)
+![CodeCov](https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5WO4RO683)
 
 ## 📝 How to Build
 
