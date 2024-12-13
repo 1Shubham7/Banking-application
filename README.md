@@ -96,7 +96,7 @@ curl -X POST http://localhost:8080/accounts \
 4. Now you can perform actions on the account, for example, get a user account (under authentication):
 
 ```sh
-curl -X GET http://localhost:8080/accounts -H "Authorization: Bearer v2.local.nqUejIG_-A0-YKfedgDIjfFH9AyLr-idGE5e3QvduogV3hRsO0d1HTu3MoaXjHTfixDPjy7ZImbJZU_6S-LNZG3OqWtNZlQA0ta-UBg5vnnaGjzvahOT4CxwaBXOeZdxMjiZ0eRMB3yf4Kb8X0dYdjk0830h7b6b95gnmWfs85DfUUvh5JxuHaUwdT1SSiAf2r5-hh2d3qX1nFRnyeT0T0P3jOVrFd-Citqgz-ASCGMdtbJ1Dne6xjZ1SXsMlNt5zswiEkfTx5wOBshWV6oj.bnVsbA"
+curl -X GET http://localhost:8080/accounts/1 -H "Authorization: Bearer v2.local.nqUejIG_-A0-YKfedgDIjfFH9AyLr-idGE5e3QvduogV3hRsO0d1HTu3MoaXjHTfixDPjy7ZImbJZU_6S-LNZG3OqWtNZlQA0ta-UBg5vnnaGjzvahOT4CxwaBXOeZdxMjiZ0eRMB3yf4Kb8X0dYdjk0830h7b6b95gnmWfs85DfUUvh5JxuHaUwdT1SSiAf2r5-hh2d3qX1nFRnyeT0T0P3jOVrFd-Citqgz-ASCGMdtbJ1Dne6xjZ1SXsMlNt5zswiEkfTx5wOBshWV6oj.bnVsbA"
 ```
 
 This will return a response:
@@ -134,7 +134,9 @@ curl -X POST http://localhost:8080/accounts -H "Authorization: Bearer v2.local.Q
 And then perform transfer:
 
 ```sh
-curl -X POST http://localhost:8080/transfers -H "Authorization: Bearer v2.local.nqUejIG_-A0-YKfedgDIjfFH9AyLr-idGE5e3QvduogV3hRsO0d1HTu3MoaXjHTfixDPjy7ZImbJZU_6S-LNZG3OqWtNZlQA0ta-UBg5vnnaGjzvahOT4CxwaBXOeZdxMjiZ0eRMB3yf4Kb8X0dYdjk0830h7b6b95gnmWfs85DfUUvh5JxuHaUwdT1SSiAf2r5-hh2d3qX1nFRnyeT0T0P3jOVrFd-Citqgz-ASCGMdtbJ1Dne6xjZ1SXsMlNt5zswiEkfTx5wOBshWV6oj.bnVsbA"  -d '{"from_account_id": 1, "to_account_id":2, "amount":100 "currency": "USD"}'
+curl -X POST http://localhost:8080/transfers \
+-H "Authorization: Bearer v2.local.Uy6OaYa3xMprOC5l7yhgKOnEewh_JxGnbG3ROZrpGdm7D70nI7GYXsFaYU63_gXMn1LDy-Qjt-A_wUqE1YtvsIxLGnSP0E2YGpWWZV6j5k0BEp7fbHOVnxhwA3npTsDZtt8wkd6rC83jZl3lk--40FniuuJdKAXR3a2bv6Go_C_rvW6s8MQT-me3jLQVhQTEInNDnyqhfVOljM8vQj00gT3LyX8bRhhEGKfaxsK6ouGNFtuLhywvhA6AUQvZ6d_KQnZzlgYk9bA5oVZgptVN.bnVsbA" \
+-d '{"from_account_id": 1, "to_account_id": 2, "amount": 100, "currency": "USD"}'
 ```
 
 6. **For Refreshing Token:**
@@ -146,7 +148,7 @@ curl -X POST http://localhost:8080/tokens/renew_access -H "Authorization: Bearer
 
 This will return a new access token:
 
-```sh
+```json
 {"access_token":"v2.local.Uy6OaYa3xMprOC5l7yhgKOnEewh_JxGnbG3ROZrpGdm7D70nI7GYXsFaYU63_gXMn1LDy-Qjt-A_wUqE1YtvsIxLGnSP0E2YGpWWZV6j5k0BEp7fbHOVnxhwA3npTsDZtt8wkd6rC83jZl3lk--40FniuuJdKAXR3a2bv6Go_C_rvW6s8MQT-me3jLQVhQTEInNDnyqhfVOljM8vQj00gT3LyX8bRhhEGKfaxsK6ouGNFtuLhywvhA6AUQvZ6d_KQnZzlgYk9bA5oVZgptVN.bnVsbA","access_token_expires_at":"2024-12-13T13:41:10.668632532+05:30"}
 ```
 
