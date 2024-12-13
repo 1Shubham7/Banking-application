@@ -38,13 +38,13 @@ mockgen --destination db/mock/store.go --package mockdb  github.com/1shubham7/ba
 Create User First:
 
 ```
-curl -i -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{"username": "shiv", "password": "password", "full_name": "Shiv Pratap Singh Waghel", "email": "shivp007@gmail.com"}'
+curl -i -X POST http://localhost:8080/users -H "Content-Type: application/json" -d '{"username": "Shubham", "password": "secret", "full_name": "Shubham Singh", "email": "shubhammahar1306@gmail.com"}'
 ```
 
 Then Login the User:
 
 ```
-curl -i -X POST http://localhost:8080/users/login -H "Content-Type application/json" -d '{"username": "shiv", "password": "password"}'
+curl -i -X POST http://localhost:8080/users/login -H "Content-Type application/json" -d '{"username": "Shubham", "password": "secret"}'
 ```
 
 Then create an account for the user:
@@ -62,6 +62,16 @@ Then you can get that account:
 curl -X GET http://localhost:8080/accounts/1 -H "Authorization: Bearer <TOKEN>"
 ```
 
+
+Transfer:
+
+```
+ curl -X POST http://localhost:8080/transfers -H "Authorization: Bearer v2.local.nqUejIG 
+_-A0-YKfedgDIjfFH9AyLr-idGE5e3QvduogV3hRsO0d1HTu3MoaXjHTfixDPjy7ZImbJZU_6S-LNZG3OqWtNZlQA0ta-UBg5vnnaGjzvahOT4CxwaBXOeZdxMjiZ0eRMB3yf4 
+Kb8X0dYdjk0830h7b6b95gnmWfs85DfUUvh5JxuHaUwdT1SSiAf2r5-hh2d3qX1nFRnyeT0T0P3jOVrFd-Citqgz-ASCGMdtbJ1Dne6xjZ1SXsMlNt5zswiEkfTx5wOBshWV6o 
+j.bnVsbA" \
+> -d '{"from_account_id": 1, "to_account_id":2, "amount":100 "currency": "USD"}'
+```
 
 
 

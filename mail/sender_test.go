@@ -8,7 +8,7 @@ import (
 )
 
 func TestSendEmail(t *testing.T) {
-	// to skip the test
+	// Skip this Test
 	if testing.Short(){
 		t.Skip()
 	}
@@ -27,7 +27,7 @@ func TestSendEmail(t *testing.T) {
 	I want to tell you that I hate Soan Papdi — it tastes like medicine. And momos... I hate the taste of momos.</p>
 	`
 
-	to := []string{"shubhammahar1306@gmail.com"}
+	to := []string{"sp09singhwaghel@gmail.com"}
 	attachFiles := []string{"../README.md"}
 
 	err = sender.SendEmail(subject, content, to, nil, nil, attachFiles)
