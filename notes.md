@@ -1,3 +1,33 @@
+- First we created a DB schema in the DBDiagram.io  . then we pasted exported the DBML to PostgreSQL and pasted it in 000001_init_schema.up.sql
+
+### migration folder
+
+Migration (000001_init_schema.up.sql): This file defines the database schema using SQL. then other .up.sql files are adding more tables and .down.sql removes the tables if applied. You use golang-migrate to apply this schema to your database i.e. create these tables in the DB. we do that using:
+
+```
+migrateup:
+	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose up
+
+migrateup1:
+	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose up 1
+```
+
+- `migrateup` runs all pending migrations in the ./db/migration/ folder. (it applies all the .up.sql files, in order.)
+while `migrateup1` Runs only one migration at a time, (applies the next pending .up.sql file)
+
+- It creates tables (accounts, entries, transfers), defines foreign keys, indexes, and column constraints.
+
+### SQL Queries (query folder):
+
+This folder contains SQL queries with sqlc-specific annotations (e.g., -- name: CreateAccount :one). we have manually written this file to define the queries your application will use.
+
+### Go Code (sqlc folder)
+
+You run sqlc generate, which reads the account.sql queries and automatically generates Go code for them.
+This generated Go code allows you to call SQL queries using Go functions without writing raw SQL inside your Go code.
+
+
+
 ```
 docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=root -e  POSTGRES_PASSWORD=secret -d postgres:12-alpine
 ```

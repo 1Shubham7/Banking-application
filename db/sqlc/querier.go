@@ -30,4 +30,5 @@ type Querier interface {
 	UpdateAccount(ctx context.Context, arg UpdateAccountParams) (Account, error)
 }
 
+// type assertion
 var _ Querier = (*Queries)(nil)

@@ -36,7 +36,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 
 	if err != nil {
 		// becuase it will not be appropriate to give a 500 code for adding an account owner without it being a user
-		if pqErr, ok := err.(*pq.Error); ok {
+		if pqErr, ok := err.(*pq.Error); ok { ///pqErr means Postgres error
 			switch pqErr.Code.Name() {
 			case "foreign_key_voilation", "unique_voilation":
 				ctx.JSON(http.StatusForbidden, errorResponse(err))

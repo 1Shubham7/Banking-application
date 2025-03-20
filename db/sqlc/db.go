@@ -11,9 +11,13 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 )
 
+// DBTX represents an object capable of executing SQL queries.
 type DBTX interface {
+	// Executes a query that does not return rows e.g. INSERT or UPDATE
 	Exec(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
+	// Executes a query that returns multiple rows e.g. SELECT
 	Query(context.Context, string, ...interface{}) (pgx.Rows, error)
+	// Executes a query that returns a single row
 	QueryRow(context.Context, string, ...interface{}) pgx.Row
 }
 
@@ -27,6 +31,6 @@ type Queries struct {
 
 func (q *Queries) WithTx(tx pgx.Tx) *Queries {
 	return &Queries{
-		db: tx,
+		db: tx, // Use the transaction connection instead of regular DB connection
 	}
 }
