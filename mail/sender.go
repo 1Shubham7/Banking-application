@@ -6,7 +6,6 @@ import (
 	"github.com/jordan-wright/email"
 )
 
-// we use gmail as host from  sending mails
 const (
 	smtpAuthAddress   = "smtp.gmail.com"
 	smtpServerAddress = "smtp.gmail.com:587" // 587 is recommended port for sending email securely

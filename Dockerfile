@@ -15,6 +15,7 @@ COPY --from=builder /app/shubham .
 COPY --from=builder /app/migrate.linux-amd64 ./migrate
 COPY app.env .
 COPY start.sh .
+#  waits for the database to be up and accepting connections before the app starts.
 COPY wait-for.sh .
 COPY db/migration ./migration
 
@@ -22,3 +23,5 @@ EXPOSE 8080
 
 CMD [ "/app/shubham" ]
 ENTRYPOINT [ "/app/start.sh" ]
+# start.sh script will run when the container starts,
+# then /app/shubham will be passed as an argument to it.
