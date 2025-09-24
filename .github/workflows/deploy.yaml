@@ -22,7 +22,8 @@ jobs:
         aws-region: ap-south-1
 
     - name: Load secrets and save to app.env
-        run: (aws secretsmanager get-secret-value --secret-id smyik-secret --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') > app.env
+      run: (aws secretsmanager get-secret-value --secret-id smyik-secret --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') > app.env
+    
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
