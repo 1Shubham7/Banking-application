@@ -8,16 +8,16 @@ postgres:
 	docker run --name postgres12 --network smyik-network -p 5432:5432 -e POSTGRES_USER=root -e  POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
 migrateup:
-	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose up
+	migrate -path  ./db/migration/ --database="postgres://root:soLLdaYy5pock4eFdQVa@smyik-db.cvumq0oimn62.ap-south-1.rds.amazonaws.com:5432/postgres?" --verbose up
 
 migrateup1:
-	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose up 1
+	migrate -path  ./db/migration/ --database="postgres://root:soLLdaYy5pock4eFdQVa@smyik-db.cvumq0oimn62.ap-south-1.rds.amazonaws.com:5432/postgres" --verbose up 1
 
 migratedown:
-	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose down
+	migrate -path  ./db/migration/ --database="postgres://root:soLLdaYy5pock4eFdQVa@smyik-db.cvumq0oimn62.ap-south-1.rds.amazonaws.com:5432/postgres" --verbose down
 
 migratedown1:
-	migrate -path  ./db/migration/ --database="postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" --verbose down 1
+	migrate -path  ./db/migration/ --database="postgres://root:soLLdaYy5pock4eFdQVa@smyik-db.cvumq0oimn62.ap-south-1.rds.amazonaws.com:5432/postgres" --verbose down 1
 
 sqlc:
 	sqlc generate

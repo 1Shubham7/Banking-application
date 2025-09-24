@@ -209,6 +209,14 @@ This will return a new access token:
 }
 ```
 
+## AWS Secrets
+
+Command to generate the .env file from secrets stored in secrets manager and accessed using IAM (which has the required permissions).
+
+```
+aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
+```
+
 ## 🤝 Contributing
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/1shubham7/banking-application)
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/1shubham7/banking-application)
