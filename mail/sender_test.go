@@ -8,7 +8,7 @@ import (
 )
 
 func TestSendEmail(t *testing.T) {
-	// Skip this Test
+	// Skip this Test when -short flag is used
 	if testing.Short(){
 		t.Skip()
 	}
