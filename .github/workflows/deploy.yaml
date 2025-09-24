@@ -2,7 +2,7 @@ name: Deploy to production (AWS ECR)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   deploy:
