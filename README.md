@@ -73,6 +73,10 @@ make server
 curl -i -X POST http://localhost:8080/users -H "Content-Type: application/json" \
 -d '{"username": "Shubham", "password": "secret", "full_name": "Shubham Singh", "email": "shubhammahar1306@gmail.com"}'
 ```
+If running locally, you can checkout the db, we use postgres:
+
+<img width="2784" height="1648" alt="image" src="https://github.com/user-attachments/assets/ac11f3c7-46f4-4d75-98cd-55202b3b097f" />
+
 
 2. **Login User:**
 ```sh
