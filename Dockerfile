@@ -13,7 +13,7 @@ WORKDIR /app
 # means copy from the builder stage and put it in /app in . dir
 COPY --from=builder /app/shubham .
 COPY --from=builder /app/migrate.linux-amd64 ./migrate
-COPY app.env .
+# COPY app.env .
 COPY start.sh .
 #  waits for the database to be up and accepting connections before the app starts.
 COPY wait-for.sh .
