@@ -1,0 +1,78 @@
+# Default values for banking-app
+replicaCount: 2
+
+image:
+  repository: 430118842689.dkr.ecr.ap-south-1.amazonaws.com/smiyk
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# PostgreSQL Configuration using CloudNativePG
+postgresql:
+  enabled: true
+  cluster:
+    name: smiyk-db
+    instances: 1
+    
+    postgresql:
+      parameters:
+        max_connections: "200"
+        shared_buffers: "128MB"
+        
+    bootstrap:
+      initdb:
+        database: postgres
+        owner: root
+          
+    storage:
+      size: 2Gi
+      storageClass: "local-path"
+
+# Database credentials (will be created as secret)
+database:
+  username: root
+  password: secret
+  database: postgres
+
+# Application environment variables from app.env
+app:
+  env:
+    DB_DRIVER: postgres
+    SERVER_ADDRESS: "0.0.0.0:8080"
+    ACCESS_TOKEN_DURATION: "15m"
+    TOKEN_SYMMETRIC_KEY: "3ae505269c823e6aaf5825f16e203781"
