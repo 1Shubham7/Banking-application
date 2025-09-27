@@ -223,6 +223,12 @@ the current kubernetes setup is that of one master and one worker node. created 
 
 <img width="1438" height="328" alt="image" src="https://github.com/user-attachments/assets/d413a383-d742-483d-a1ab-ca3aaaa85ad0" />
 
+- We are using Racher Local Path Provisioner for creating Storage Class. 
+
+<img width="2358" height="246" alt="image" src="https://github.com/user-attachments/assets/d3685e9b-615e-4df8-9ff3-066d7ab710be" />
+
+
+
 
 ```
 aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
