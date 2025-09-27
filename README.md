@@ -217,6 +217,13 @@ This will return a new access token:
 
 Command to generate the .env file from secrets stored in secrets manager and accessed using IAM (which has the required permissions).
 
+## K8s Env
+
+the current kubernetes setup is that of one master and one worker node. created using aws ec2 and kubeadm for init setup:
+
+<img width="1438" height="328" alt="image" src="https://github.com/user-attachments/assets/d413a383-d742-483d-a1ab-ca3aaaa85ad0" />
+
+
 ```
 aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
 ```
