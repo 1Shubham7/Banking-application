@@ -23,6 +23,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-1
 
+    - name: Verify Which AWS Account is Being Used
+      run: aws sts get-caller-identity
+
     # - name: Load secrets and save to app.env
     #   run: (aws secretsmanager get-secret-value --secret-id smyik-secret --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') > app.env
     
@@ -42,7 +45,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: smiyk
+        ECR_REPOSITORY: smyik
         IMAGE_TAG: ${{ steps.generate-tag.outputs.IMAGE_TAG }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
