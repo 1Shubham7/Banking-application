@@ -3,6 +3,8 @@ name: Deploy to production (AWS ECR)
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -21,18 +23,39 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-1
 
-    - name: Load secrets and save to app.env
-      run: (aws secretsmanager get-secret-value --secret-id smyik-secret --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') > app.env
+    # - name: Load secrets and save to app.env
+    #   run: (aws secretsmanager get-secret-value --secret-id smyik-secret --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]') > app.env
     
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Generate image tag
+      id: generate-tag
+      run: |
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          echo "IMAGE_TAG=pr-${{ github.event.number }}" >> $GITHUB_OUTPUT
+        else
+          echo "IMAGE_TAG=main-$(echo ${{ github.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
+        fi
+
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: smyik
-        IMAGE_TAG: ${{ github.sha }}
+        ECR_REPOSITORY: smiyk
+        IMAGE_TAG: ${{ steps.generate-tag.outputs.IMAGE_TAG }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-        docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+        # Also tag as latest for main branch
+        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        fi
+
+    - name: Output image information
+      run: |
+        echo "Image pushed successfully!"
+        echo "Image URI: ${{ steps.login-ecr.outputs.registry }}/smiyk:${{ steps.generate-tag.outputs.IMAGE_TAG }}"
+        echo "Image tag: ${{ steps.generate-tag.outputs.IMAGE_TAG }}"

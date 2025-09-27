@@ -1,0 +1,31 @@
+{{- if .Values.postgresql.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.postgresql.cluster.name }}
+  labels:
+    {{- include "banking-app.labels" . | nindent 4 }}
+spec:
+  instances: {{ .Values.postgresql.cluster.instances | default 1}}
+
+  postgresql:
+    parameters:
+      {{- toYaml .Values.postgresql.cluster.postgresql.parameters | nindent 6 }}
+
+  bootstrap:
+    initdb:
+      database: {{ .Values.postgresql.cluster.bootstrap.initdb.database }}
+      owner: {{ .Values.postgresql.cluster.bootstrap.initdb.owner }}
+
+  storage:
+    size: {{ .Values.postgresql.cluster.storage.size | default "2Gi" }}
+    storageClass: {{ .Values.postgresql.cluster.storage.storageClass }}
+
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+{{- end }}
