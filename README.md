@@ -227,7 +227,11 @@ the current kubernetes setup is that of one master and one worker node. created 
 
 <img width="2358" height="246" alt="image" src="https://github.com/user-attachments/assets/d3685e9b-615e-4df8-9ff3-066d7ab710be" />
 
+- For ssh into nodes, inbound traffic only allowed from my machine:
 
+```
+ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
+```
 
 
 ```
