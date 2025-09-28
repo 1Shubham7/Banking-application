@@ -126,23 +126,25 @@ aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretStri
 
 ## Kubernetes Environment
 
-the current kubernetes setup is that of one master and one worker node. created using aws ec2 and kubeadm for init setup:
+The cluster is self-managed and provisioned on AWS EC2 with kubeadm (1 master, 1 worker node).
 
 <img width="1438" height="328" alt="image" src="https://github.com/user-attachments/assets/d413a383-d742-483d-a1ab-ca3aaaa85ad0" />
 
-- We are using Racher Local Path Provisioner for creating Storage Class. 
+- **Storage:** Using Rancher Local Path Provisioner for dynamic StorageClass creation and PVC provisioning.
 
 <img width="2358" height="246" alt="image" src="https://github.com/user-attachments/assets/d3685e9b-615e-4df8-9ff3-066d7ab710be" />
 
-- For ssh into nodes, inbound traffic only allowed from my machine:
+- SSH access to nodes is restricted — only inbound traffic from my machine is allowed.
 
 ```
 ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
 ```
 
-- The smyik deployment uses the latest ECR image, hence merged code directly reflects in the Prod.
+- **Deployments:** The smyik deployment always uses the latest image from AWS ECR, so merged code is automatically reflected in production.
 
 <img width="2653" height="1077" alt="image" src="https://github.com/user-attachments/assets/1fbcb7f2-412f-4778-a1dc-32253f012f54" />
+
+- **Database:** PostgreSQL is managed via the CloudNativePG operator inside the cluster.
 
 ```
  username |                       hashed_password                        |   full_name   |           email            |  password_changed_at   |          created_at           
@@ -151,18 +153,18 @@ ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
 (1 row)
 ```
 
-- Argocd is accessed using port forwarding.
+- **ArgoCD:**
+  * Accessed via port-forwarding for internal use, we are using app of apps approach:
 
 ```
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-For connecting to github repo, the argocd must be accessible from outside cluster, so for that we created a nodeport `https://13.235.238.140:32725/`
+  * To enable external GitHub integration, ArgoCD is also exposed through a NodePort service: `https://13.235.238.140:32725/`
 
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/745f7bc6-96a1-4244-a9a6-b4227df6ac6a" />
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/42bb5040-044b-45d7-ab1d-41a292ba176a" />
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/d30f4729-183e-4fe4-ad9a-8d1ad76185a1" />
-
 
 ## 🤝 Contributing
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/1shubham7/banking-application)
