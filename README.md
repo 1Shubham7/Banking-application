@@ -146,6 +146,8 @@ ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
+For connecting to github repo, the argocd must be accessible from outside cluster, so for that we created a nodeport `https://13.235.238.140:32725/`
+
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/745f7bc6-96a1-4244-a9a6-b4227df6ac6a" />
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/42bb5040-044b-45d7-ab1d-41a292ba176a" />
 <img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/d30f4729-183e-4fe4-ad9a-8d1ad76185a1" />
