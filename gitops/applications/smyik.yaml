@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: smyik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/1Shubham7/Banking-application.git'
+    path: gitops/helm-charts/smyik
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: smyik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
