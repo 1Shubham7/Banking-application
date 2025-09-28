@@ -22,9 +22,10 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 8080
   targetPort: 8080
+  nodePort: 30080
 
 ingress:
   enabled: false
@@ -48,7 +49,7 @@ affinity: {}
 postgresql:
   enabled: true
   cluster:
-    name: smiyk-db
+    name: smyik-db
     instances: 1
     
     postgresql:
@@ -67,13 +68,13 @@ postgresql:
       size: 2Gi
       storageClass: "local-path"
 
-# Database credentials (will be created as secret)
+# Database credentials
 database:
   username: root
   password: secret
   database: simple_bank
 
-# Application environment variables from app.env
+# Application environment variables
 app:
   env:
     DB_DRIVER: postgres
