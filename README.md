@@ -65,7 +65,7 @@ make migrateup
 make server
 ```
 
-## 🙋‍♂️ User Journey
+## 🙋‍♂️ Local User Journey
 
 1. **Create a User/SignIn:**
 
@@ -215,9 +215,13 @@ This will return a new access token:
 
 ## AWS Secrets
 
-Command to generate the .env file from secrets stored in secrets manager and accessed using IAM (which has the required permissions).
+Command to generate the .env file from secrets stored in secrets manager and accessed using IAM (which has the required permissions):
 
-## K8s Env
+```
+aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
+```
+
+## Kubernetes Environment
 
 the current kubernetes setup is that of one master and one worker node. created using aws ec2 and kubeadm for init setup:
 
@@ -233,10 +237,17 @@ the current kubernetes setup is that of one master and one worker node. created 
 ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
 ```
 
+- The smyik deployment uses the latest ECR image, hence merged code directly reflects in the Prod.
+
+<img width="2653" height="1077" alt="image" src="https://github.com/user-attachments/assets/1fbcb7f2-412f-4778-a1dc-32253f012f54" />
 
 ```
-aws secretsmanager get-secret-value --secret-id smyik-secret  --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
+ username |                       hashed_password                        |   full_name   |           email            |  password_changed_at   |          created_at           
+----------+--------------------------------------------------------------+---------------+----------------------------+------------------------+-------------------------------
+ Shubham  | $2a$10$HJkUqL6rqeNdd5zLugg5iuZpkHFIh9QUu59yZyp4Q5n8puJwOjcJi | Shubham Singh | shubhammahar1306@gmail.com | 0001-01-01 00:00:00+00 | 2025-09-28 03:49:05.525485+00
+(1 row)
 ```
+
 
 ## 🤝 Contributing
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/1shubham7/banking-application)
