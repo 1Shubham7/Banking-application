@@ -9,7 +9,10 @@
 
 </div>
 
-This project is a banking application built using Go + PostgreSQL + Docker. I have used Go as the backend language, PostgreSQL as the database, SQLC for generating type-safe SQL queries, and `go-playground/validator` for input validation. The project also includes comprehensive unit tests written with `testify` and `GoMock` for mocking dependencies. The project also includes CI tests written using GitHub workflows and code coverage is also tracked and uploaded to Codecov ([find it here](https://app.codecov.io/gh/1shubham7/banking-application)). Build automation and commands are managed using Makefile.
+A banking application built with Go, PostgreSQL, and Docker. It uses SQLC for generating type-safe queries and `go-playground/validator` for input validation.
+The project includes comprehensive unit tests with `testify` and `GoMock` for mocking dependencies. Project has a **CI-CD pipeline** that runs automated tests, conduct database migrations, uploads code coverage to [Codecov](https://app.codecov.io/gh/1shubham7/banking-application) and **builds, tags, and pushes images to AWS ECR**, which is directly used in production.
+
+The application is fully **containerized** with Docker and deployed on a **self-managed Kubernetes cluster** (AWS EC2) using **Helm charts** and **ArgoCD** for GitOps-driven deployments. Storage is managed using **Rancher Local Path Provisioner** for dynamic PVC provisioning and the **CloudNativePG operator** for PostgreSQL lifecycle management. Build automation and commands are handled with a Makefile.
 
 ⭐ Star us on GitHub — it motivates me a lot!
 
@@ -29,6 +32,14 @@ This project is a banking application built using Go + PostgreSQL + Docker. I ha
 - **CI Pipeline:** GitHub Actions for CI tests and code coverage uploading, 
 - **Code Coverage:** Tracking test coverage of the project using Codecov. ([find it here](https://app.codecov.io/gh/1shubham7/banking-application))
 - **Build and Commands:** Managed using Makefile
+
+## ⚙️ Infrastructure & Deployment
+
+- **CI/CD:** GitHub Actions pipelines for testing, database migrations, code coverage, and automated Docker builds pushed to AWS ECR and directly to Prod.
+- **Cluster:** Self-managed Kubernetes cluster on AWS EC2.
+- **Deployments:** Helm charts with ArgoCD for GitOps-based continuous delivery - App of apps approach.
+- **Storage:** Rancher Local Path Provisioner for dynamic PVCs.
+- **Database Operator:** CloudNativePG operator for managing PostgreSQL inside Kubernetes.
 
 ![CodeCov](https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5WO4RO683)
 
