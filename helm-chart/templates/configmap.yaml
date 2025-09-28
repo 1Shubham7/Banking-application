@@ -8,4 +8,3 @@ data:
   DB_DRIVER: {{ .Values.app.env.DB_DRIVER | quote }}
   SERVER_ADDRESS: {{ .Values.app.env.SERVER_ADDRESS | quote }}
   ACCESS_TOKEN_DURATION: {{ .Values.app.env.ACCESS_TOKEN_DURATION | quote }}
-  DB_SOURCE: "postgres://{{ .Values.database.username }}:{{ .Values.database.password }}@{{ .Values.postgresql.cluster.name }}-rw:5432/{{ .Values.database.database }}?sslmode=disable"

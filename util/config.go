@@ -23,14 +23,24 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
 
+	// Enable automatic environment variable reading
 	viper.AutomaticEnv()
 
+	// Try to read config file, but don't fail if it doesn't exist
 	err = viper.ReadInConfig()
-
 	if err != nil {
-		return
+		// Check if it's a "file not found" error
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found, that's okay - we'll use environment variables
+			// Reset the error since we can continue without the file
+			err = nil
+		} else {
+			// Some other error occurred while reading the file
+			return
+		}
 	}
 
+	// Unmarshal the configuration (from file + environment variables)
 	err = viper.Unmarshal(&config)
 
 	return config, err

@@ -20,15 +20,17 @@ spec:
       labels:
         {{- include "banking-app.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      # This section tells the pod to use the secret we created in templates/ecr-secret.yaml
+      # It will only be added if imagePullSecrets.create is true in your values.yaml
+      {{- if .Values.imagePullSecrets.create }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: ecr-registry-secret
       {{- end }}
-      serviceAccountName: {{ include "banking-app.serviceAccountName" . }}
+      serviceAccountName: {{ .Values.serviceAccountName | default (include "banking-app.serviceAccountName" .) }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       
-      # Wait for database to be ready
+      # Wait for database to be ready (assuming values are set for the DB)
       initContainers:
       - name: wait-for-db
         image: postgres:15-alpine
@@ -45,7 +47,7 @@ spec:
         - name: PGPASSWORD
           valueFrom:
             secretKeyRef:
-              name: banking-db-credentials
+              name: banking-db-root-credentials
               key: password
       
       containers:
@@ -71,6 +73,8 @@ spec:
             secretKeyRef:
               name: {{ include "banking-app.fullname" . }}-app-secrets
               key: TOKEN_SYMMETRIC_KEY
+        - name: DB_SOURCE
+          value: "postgres://root:{{ .Values.database.password }}@{{ .Values.postgresql.cluster.name }}-rw:5432/{{ .Values.database.database }}?sslmode=disable"
         
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
