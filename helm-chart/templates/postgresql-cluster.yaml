@@ -15,7 +15,9 @@ spec:
   bootstrap:
     initdb:
       database: {{ .Values.postgresql.cluster.bootstrap.initdb.database }}
-      owner: {{ .Values.postgresql.cluster.bootstrap.initdb.owner }}
+      owner: root
+      secret:
+        name: banking-db-root-credentials
 
   storage:
     size: {{ .Values.postgresql.cluster.storage.size | default "2Gi" }}

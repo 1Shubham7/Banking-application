@@ -2,11 +2,13 @@
 replicaCount: 2
 
 image:
-  repository: 430118842689.dkr.ecr.ap-south-1.amazonaws.com/smiyk
+  repository: 430118842689.dkr.ecr.ap-south-1.amazonaws.com/smyik
   pullPolicy: Always
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  create: true
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -56,8 +58,10 @@ postgresql:
         
     bootstrap:
       initdb:
-        database: postgres
+        database: simple_bank
         owner: root
+        secret:
+          name: banking-db-root-credentials
           
     storage:
       size: 2Gi
@@ -67,7 +71,7 @@ postgresql:
 database:
   username: root
   password: secret
-  database: postgres
+  database: simple_bank
 
 # Application environment variables from app.env
 app:
