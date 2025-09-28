@@ -1,6 +1,7 @@
 package util
 
 import (
+	"os"
 	"time"
 
 	"github.com/spf13/viper"
@@ -42,6 +43,24 @@ func LoadConfig(path string) (config Config, err error) {
 
 	// Unmarshal the configuration (from file + environment variables)
 	err = viper.Unmarshal(&config)
+	if err != nil {
+		return
+	}
+
+	// Fallback: If TOKEN_SYMMETRIC_KEY is empty, try to get it directly from env
+	if config.TokenSymmetricKey == "" {
+		config.TokenSymmetricKey = os.Getenv("TOKEN_SYMMETRIC_KEY")
+	}
+
+	// Fallback: If DB_SOURCE is empty, try to get it directly from env
+	if config.DBSource == "" {
+		config.DBSource = os.Getenv("DB_SOURCE")
+	}
+
+	// Fallback: If SERVER_ADDRESS is empty, try to get it directly from env
+	if config.ServerAddress == "" {
+		config.ServerAddress = os.Getenv("SERVER_ADDRESS")
+	}
 
 	return config, err
 }
