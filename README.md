@@ -140,6 +140,15 @@ ssh -v -i smyik-keypair.pem ubuntu@PUBLIC_IP
 (1 row)
 ```
 
+- Argocd is accessed using port forwarding.
+
+```
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+
+<img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/42bb5040-044b-45d7-ab1d-41a292ba176a" />
+<img width="2774" height="1566" alt="image" src="https://github.com/user-attachments/assets/d30f4729-183e-4fe4-ad9a-8d1ad76185a1" />
+
 
 ## 🤝 Contributing
   ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/1shubham7/banking-application)
