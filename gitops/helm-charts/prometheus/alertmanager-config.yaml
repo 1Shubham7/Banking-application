@@ -21,7 +21,7 @@ alertmanager:
       # Gmail SMTP configuration
       smtp_smarthost: 'smtp.gmail.com:587'
       smtp_from: 'shubhamsinghmahar1306@gmail.com'
-      smtp_auth_username: 'shubhammahar1306@gmail.com'
+      smtp_auth_username: 'shubhamsinghmahar1306@gmail.com'
       smtp_auth_password: 'kkjj zhfu zrct yfbf'
       smtp_require_tls: true
     
