@@ -1,0 +1,74 @@
+grafana:
+  enabled: true
+  adminPassword: admin
+  
+  persistence:
+    enabled: true
+    type: pvc
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+  
+  # Grafana resources
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-kube-prometheus-prometheus.monitoring.svc:9090
+          access: proxy
+          isDefault: true
+  
+  # pre install some dashboards
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+  
+  dashboards:
+    default:
+      # Kubernetes cluster monitoring
+      kubernetes-cluster:
+        gnetId: 7249
+        revision: 1
+        datasource: Prometheus
+      
+      # Node exporter full
+      node-exporter:
+        gnetId: 1860
+        revision: 31
+        datasource: Prometheus
+      
+      # Kubernetes pod monitoring
+      kubernetes-pods:
+        gnetId: 6417
+        revision: 1
+        datasource: Prometheus
+      
+      # PostgreSQL database
+      postgresql:
+        gnetId: 9628
+        revision: 7
+        datasource: Prometheus
+  
+  # Grafana service
+  service:
+    type: ClusterIP
+    port: 80
