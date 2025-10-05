@@ -1,0 +1,58 @@
+prometheus:
+  prometheusSpec:
+    # Retention period for metrics
+    retention: 15d
+    retentionSize: "10GB"
+    
+    # Resource limits (adjust based on your cluster size)
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    
+    # Storage configuration
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+    
+    # Enable service monitors for auto-discovery
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
+# Node exporter - collects node metrics
+prometheus-node-exporter:
+  enabled: true
+
+# Kube-state-metrics - collects k8s object metrics
+kube-state-metrics:
+  enabled: true
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    
+    route:
+      group_by: ['alertname', 'cluster', 'service']
+      group_wait: 10s
+      group_interval: 10s
+      repeat_interval: 12h
+      receiver: 'default'
+      routes:
+      - match:
+          alertname: Watchdog
+        receiver: 'null'
+      - match:
+          severity: critical
+        receiver: 'default'
+        continue: true
+    
+    receivers:
+    - name: 'null'
+    - name: 'default'
