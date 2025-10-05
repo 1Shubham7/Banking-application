@@ -1,8 +1,8 @@
 prometheus:
   prometheusSpec:
     # Retention period for metrics
-    retention: 15d
-    retentionSize: "10GB"
+    retention: 4d
+    retentionSize: "2GB"
     
     # Resource limits (adjust based on your cluster size)
     resources:
@@ -20,7 +20,7 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 3Gi
     
     # Enable service monitors for auto-discovery
     serviceMonitorSelectorNilUsesHelmValues: false

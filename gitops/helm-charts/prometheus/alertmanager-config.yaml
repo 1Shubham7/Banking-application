@@ -1,28 +1,64 @@
 alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
   config:
     global:
       resolve_timeout: 5m
+      # Gmail SMTP configuration
+      smtp_smarthost: 'smtp.gmail.com:587'
+      smtp_from: 'shubhamsinghmahar1306@gmail.com'
+      smtp_auth_username: 'shubhamsinghmahar1306@gmail.com'
+      smtp_auth_password: 'kkjj zhfu zrct yfbf'
+      smtp_require_tls: true
     
     route:
       group_by: ['alertname', 'cluster', 'service']
       group_wait: 10s
       group_interval: 10s
       repeat_interval: 12h
-      receiver: 'default'
+      receiver: 'email-notifications'
       routes:
         - match:
             severity: critical
-          receiver: 'critical'
+          receiver: 'critical-email'
+          continue: true
         - match:
             severity: warning
-          receiver: 'warning'
+          receiver: 'warning-email'
+          continue: true
     
     receivers:
-      - name: 'default'
-        # Add your notification configs here later (email, slack, etc)
+      - name: 'email-notifications'
+        email_configs:
+          - to: 'shubhammahar1306@gmail.com'
+            send_resolved: true
+            headers:
+              Subject: '[Prometheus] {{ .GroupLabels.alertname }} - {{ .Status | toUpper }}'
         
-      - name: 'critical'
-        # Critical alerts configuration
+      - name: 'critical-email'
+        email_configs:
+          - to: 'shubhammahar1306@gmail.com'
+            send_resolved: true
+            headers:
+              Subject: '🔴 [CRITICAL] {{ .GroupLabels.alertname }}'
         
-      - name: 'warning'
-        # Warning alerts configuration
+      - name: 'warning-email'
+        email_configs:
+          - to: 'shubhammahar1306@gmail.com'
+            send_resolved: true
+            headers:
+              Subject: '⚠️ [WARNING] {{ .GroupLabels.alertname }}'
