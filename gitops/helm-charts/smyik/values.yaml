@@ -1,4 +1,3 @@
-# Default values for banking-app
 replicaCount: 2
 
 image:
