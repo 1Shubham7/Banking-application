@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  
+
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
@@ -15,6 +15,7 @@ spec:
       helm:
         valueFiles:
           - $values/gitops/helm-charts/prometheus/values.yaml
+          - $values/gitops/helm-charts/prometheus/grafana-values.yaml
           - $values/gitops/helm-charts/prometheus/alertmanager-config.yaml
     
     - repoURL: https://github.com/1Shubham7/Banking-application.git
