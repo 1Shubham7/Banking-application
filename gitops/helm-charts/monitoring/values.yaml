@@ -33,26 +33,3 @@ prometheus-node-exporter:
 # Kube-state-metrics - collects k8s object metrics
 kube-state-metrics:
   enabled: true
-alertmanager:
-  config:
-    global:
-      resolve_timeout: 5m
-    
-    route:
-      group_by: ['alertname', 'cluster', 'service']
-      group_wait: 10s
-      group_interval: 10s
-      repeat_interval: 12h
-      receiver: 'default'
-      routes:
-      - match:
-          alertname: Watchdog
-        receiver: 'null'
-      - match:
-          severity: critical
-        receiver: 'default'
-        continue: true
-    
-    receivers:
-    - name: 'null'
-    - name: 'default'
