@@ -12,7 +12,7 @@
 A banking application built with Go, PostgreSQL, and Docker. It uses SQLC for generating type-safe queries and `go-playground/validator` for input validation.
 The project includes comprehensive unit tests with `testify` and `GoMock` for mocking dependencies. Project has a **CI-CD pipeline** that runs automated tests, conduct database migrations, uploads code coverage to [Codecov](https://app.codecov.io/gh/1shubham7/banking-application) and **builds, tags, and pushes images to AWS ECR**, which is directly used in production.
 
-The application is fully **containerized** with Docker and deployed on a **self-managed Kubernetes cluster** (AWS EC2) using **Helm charts** and **ArgoCD** for GitOps-driven deployments. Storage is managed using **Rancher Local Path Provisioner** for dynamic PVC provisioning and the **CloudNativePG operator** for PostgreSQL lifecycle management. Build automation and commands are handled with a Makefile. **Infrastructure** is provisioned and managed as code using **Terraform**, with state stored in **AWS S3**.
+The application is fully **containerized** with Docker and deployed on a **self-managed Kubernetes cluster** (AWS EC2) using **Helm charts** and **ArgoCD** for GitOps-driven deployments. Storage is managed using **Rancher Local Path Provisioner** for dynamic PVC provisioning and the **CloudNativePG operator** for PostgreSQL lifecycle management. Build automation and commands are handled with a Makefile. **Infrastructure** is provisioned and managed as code using **Terraform**, with state stored in **AWS S3**. The project includes a GitOps-based **monitoring setup** with **Prometheus** and **Grafana**, featuring proper alerting rules. **Alertmanager** is configured to send email notifications for alerts.
 
 ⭐ Star us on GitHub — it motivates me a lot!
 
@@ -41,6 +41,8 @@ The application is fully **containerized** with Docker and deployed on a **self-
 - **Storage:** Rancher Local Path Provisioner for dynamic PVCs.
 - **Database Operator:** CloudNativePG operator for managing PostgreSQL inside Kubernetes.
 - **Infrastructure:** Provisioned and managed as code using Terraform, with state stored in AWS S3.
+- **Monitoring:** GitOps-based observability setup using Prometheus and Grafana for real-time metrics and visualization.
+- **Alerting:** Configured Alertmanager with custom alerting rules to send email notifications for critical system events.
 
 ![CodeCov](https://codecov.io/gh/1Shubham7/Banking-application/graphs/sunburst.svg?token=X5WO4RO683)
 
